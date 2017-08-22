@@ -33,8 +33,6 @@ defmodule StrawHat.Error.ChangesetParser do
     "ecto.validation." <> code
   end
 
-  defp do_get_code(%{code: code}), do: code
-
   # Ecto.Changeset.validate_length/3 when the :is option fails validation
   defp do_get_code(%{validation: :length, is: _}), do: :length_is
 

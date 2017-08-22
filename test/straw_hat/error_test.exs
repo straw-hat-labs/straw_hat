@@ -42,9 +42,7 @@ defmodule StrawHatTest.ErrorTest do
         |> validate_acceptance(:terms_of_service)
         |> validate_change(:title, fn :title, title ->
           if title == "foobar" do
-            # This is screwed up because it will no show
-            # meaninful information
-            [title: "cannot be foo"]
+            [title: {"cannot be foo", [validation: :cant_be, value: "foobar"]}]
           else
             []
           end
