@@ -8,7 +8,7 @@ defmodule StrawHat.Error.ChangesetParser do
     |> Enum.flat_map(fn({_field, values}) -> values end)
   end
 
-  defp construct_error(_changeset, field, {message, opts} = error_tuple) do
+  defp construct_error(_changeset, field, {_message, opts} = error_tuple) do
     metadata =
       opts
       |> tidy_opts()

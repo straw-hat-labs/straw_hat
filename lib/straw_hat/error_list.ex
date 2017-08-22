@@ -1,5 +1,4 @@
 defmodule StrawHat.ErrorList do
-  alias StrawHat.Error
   alias StrawHat.Error.ChangesetParser
 
   defstruct [errors: []]
