@@ -10,6 +10,8 @@ defmodule StrawHat.Mixfile do
   @source_url "https://github.com/straw-hat-llc/straw_hat"
 
   def project do
+    production? = Mix.env == :prod
+
     [
       app: @name,
       description: @description,
@@ -44,6 +46,9 @@ defmodule StrawHat.Mixfile do
 
   defp deps do
     [
+      {:ecto, "~> 2.1"},
+      {:uuid, "~> 1.1"},
+
       # Tools
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:excoveralls, ">= 0.0.0", only: :test}
