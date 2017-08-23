@@ -44,19 +44,19 @@ defmodule StrawHat.Error.ChangesetParser do
 
   defp do_get_code(%{validation: :number, message: message}) do
     cond do
-      # Ecto.Changeset.validate_length/3 when the :less_than_or_equal_to option fails validation
+      # Ecto.Changeset.validate_number/3 when the :less_than_or_equal_to option fails validation
       String.contains?(message, "less than or equal to") -> :number_less_than_or_equal_to
 
-      # Ecto.Changeset.validate_length/3 when the :greater_than_or_equal_to option fails validation
+      # Ecto.Changeset.validate_number/3 when the :greater_than_or_equal_to option fails validation
       String.contains?(message, "greater than or equal to") -> :number_greater_than_or_equal_to
 
-      # Ecto.Changeset.validate_length/3 when the :less_than option fails validation
+      # Ecto.Changeset.validate_number/3 when the :less_than option fails validation
       String.contains?(message, "less than") -> :number_less_than
 
-      # Ecto.Changeset.validate_length/3 when the :greater_than option fails validation
+      # Ecto.Changeset.validate_number/3 when the :greater_than option fails validation
       String.contains?(message, "greater than") -> :number_greater_than
 
-      # Ecto.Changeset.validate_length/3 when the :equal_to option fails validation
+      # Ecto.Changeset.validate_number/3 when the :equal_to option fails validation
       String.contains?(message, "equal to") -> :number_equal_to
 
       true -> :unknown
