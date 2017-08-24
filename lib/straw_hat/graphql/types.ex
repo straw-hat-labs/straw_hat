@@ -10,7 +10,7 @@ defmodule StrawHat.GraphQL.Types do
     field :success, non_null(:boolean)
 
     @desc "list of errors when the mutation fail (success: false)"
-    field :errors, list_of(:mutation_error)
+    field :errors, list_of(:error)
   end
 
   object :metadata do
@@ -23,10 +23,6 @@ defmodule StrawHat.GraphQL.Types do
     field :code, non_null(:string)
     field :type, :string
     field :metadata, list_of(:metadata)
-  end
-
-  object :error_list do
-    field :errors, list_of(:error)
   end
 
   object :cursor_pagination_info do
