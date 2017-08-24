@@ -1,15 +1,18 @@
 defmodule StrawHat.Error do
   alias StrawHat.Error
 
-  defstruct [id: "", code: "", metadata: []]
+  @enforce_keys [:id, :code]
+  defstruct [:id, :code, :type, :metadata]
 
-  def new(%Ecto.Changeset{} = changeset), do: StrawHat.ErrorList.new(changeset)
+  def new(code, params \\ [])
+  def new(code, params) do
+    type = Keyword.get(params, :type, "generic")
+    metadata = Keyword.get(params, :metadata, [])
 
-  def new(code, metadata \\ [])
-  def new(code, metadata) do
     %Error{
       id: UUID.uuid1(),
       code: code,
+      type: type,
       metadata: metadata
     }
   end
