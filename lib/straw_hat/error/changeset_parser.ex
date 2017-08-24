@@ -1,5 +1,6 @@
 defmodule StrawHat.Error.ChangesetParser do
   alias StrawHat.Error
+  alias StrawHat.Error.ErrorMetadata
 
   def parse(changeset) do
     changeset
@@ -12,11 +13,12 @@ defmodule StrawHat.Error.ChangesetParser do
     metadata =
       opts
       |> tidy_opts()
-      |> Keyword.merge([field_name: field])
+      |> Keyword.put(:field_name, field)
+      |> Enum.map(&ErrorMetadata.new/1)
 
     error_tuple
     |> get_code()
-    |> Error.new(metadata)
+    |> Error.new([type: "ecto_validation", metadata: metadata])
   end
 
   defp tidy_opts(opts) do
@@ -79,11 +81,11 @@ defmodule StrawHat.Error.ChangesetParser do
   defp do_get_code(%{message: "is still associated with this entry"}),
     do: get_constraint_code("no_assoc")
 
-  defp do_get_code(%{validation: validation_name}) when is_atom(validation_name),
-    do: validation_name |> Atom.to_string() |> get_validation_code()
+  defp do_get_code(%{validation: validation_name}),
+    do: get_validation_code(validation_name)
 
-  defp do_get_code(%{constraint: constraint_name}) when is_atom(constraint_name),
-    do: constraint_name |> Atom.to_string() |> get_constraint_code()
+  defp do_get_code(%{constraint: constraint_name}),
+    do: get_constraint_code(constraint_name)
 
   # Supplied when validation cannot be matched. This will also match
   # any custom errors added through
@@ -93,8 +95,8 @@ defmodule StrawHat.Error.ChangesetParser do
   defp do_get_code(_unknown), do: "unknown"
 
   def get_validation_code(validation_name),
-    do: "validation." <> validation_name
+    do: "validation." <> to_string(validation_name)
 
   def get_constraint_code(constraint_name),
-    do: "constraint." <> constraint_name
+    do: "constraint." <> to_string(constraint_name)
 end
