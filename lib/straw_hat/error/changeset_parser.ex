@@ -21,9 +21,7 @@ defmodule StrawHat.Error.ChangesetParser do
     |> Error.new([type: "ecto_validation", metadata: metadata])
   end
 
-  defp tidy_opts(opts) do
-    Keyword.drop(opts, [:validation, :constraint])
-  end
+  defp tidy_opts(opts), do: Keyword.drop(opts, [:validation, :constraint])
 
   defp get_code({message, opts}) do
     code =
@@ -94,9 +92,7 @@ defmodule StrawHat.Error.ChangesetParser do
   # - Ecto.Changeset.validate_change/4
   defp do_get_code(_unknown), do: "unknown"
 
-  def get_validation_code(validation_name),
-    do: "validation." <> to_string(validation_name)
+  def get_validation_code(validation_name), do: "validation." <> to_string(validation_name)
 
-  def get_constraint_code(constraint_name),
-    do: "constraint." <> to_string(constraint_name)
+  def get_constraint_code(constraint_name), do: "constraint." <> to_string(constraint_name)
 end

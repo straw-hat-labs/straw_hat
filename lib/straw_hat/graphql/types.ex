@@ -7,9 +7,9 @@ defmodule StrawHat.GraphQL.Types do
 
   interface :mutation_response do
     @desc "If the mutation happened without any problem"
-    field :success, non_null(:boolean)
+    field :successful, non_null(:boolean)
 
-    @desc "list of errors when the mutation fail (success: false)"
+    @desc "List of errors when the mutation fail (success: false)"
     field :errors, list_of(:error)
   end
 
@@ -20,8 +20,14 @@ defmodule StrawHat.GraphQL.Types do
 
   object :error do
     field :id, non_null(:id)
+
+    @desc "Identifier, use for know which error was"
     field :code, non_null(:string)
+
+    @desc "Use for categorize the error"
     field :type, :string
+
+    @desc "Information relative to the error"
     field :metadata, list_of(:metadata)
   end
 
