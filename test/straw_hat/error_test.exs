@@ -55,9 +55,8 @@ defmodule StrawHatTest.ErrorTest do
         @params
         |> get_changeset()
         |> StrawHat.Error.new()
-        |> IO.inspect()
 
-      assert is_list(error_list)
+      assert %StrawHat.Error.ErrorList{} = error_list
     end
   end
 end
