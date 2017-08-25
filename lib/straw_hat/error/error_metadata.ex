@@ -3,9 +3,7 @@ defmodule StrawHat.Error.ErrorMetadata do
 
   defstruct [:key, :value]
 
-  def new({key, value}) do
-    new(key, value)
-  end
+  def new({key, value}), do: new(key, value)
 
   def new(key, value) do
     %ErrorMetadata{
