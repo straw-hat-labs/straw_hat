@@ -53,7 +53,8 @@ defmodule StrawHat.Mixfile do
 
       # Tools
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
-      {:excoveralls, ">= 0.0.0", only: :test}
+      {:excoveralls, ">= 0.0.0", only: :test},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 

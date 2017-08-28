@@ -1,4 +1,4 @@
-defmodule StrawHat.GraphQL.Middleware.ErrorFormatterMiddleware do
+defmodule StrawHat.GraphQL.Middleware.ErrorFormatter do
   @behaviour Absinthe.Middleware
 
   alias StrawHat.Error.ErrorList

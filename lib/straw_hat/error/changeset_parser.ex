@@ -1,10 +1,11 @@
 defmodule StrawHat.Error.ChangesetParser do
+  alias Ecto.Changeset
   alias StrawHat.Error
   alias StrawHat.Error.ErrorMetadata
 
   def parse(changeset) do
     changeset
-    |> Ecto.Changeset.traverse_errors(&construct_error/3)
+    |> Changeset.traverse_errors(&construct_error/3)
     |> Enum.to_list()
     |> Enum.flat_map(fn({_field, values}) -> values end)
   end
@@ -35,23 +36,28 @@ defmodule StrawHat.Error.ChangesetParser do
   # @TODO: all this is wrong, waiting for PR to be merged
   defp do_get_code(%{validation: :number, message: message}) do
     cond do
-      # Ecto.Changeset.validate_number/3 when the :less_than_or_equal_to option fails validation
+      # Ecto.Changeset.validate_number/3 when the :less_than_or_equal_to option
+      # fails validation
       String.contains?(message, "less than or equal to") ->
         "validation.number.less_than_or_equal_to"
 
-      # Ecto.Changeset.validate_number/3 when the :greater_than_or_equal_to option fails validation
+      # Ecto.Changeset.validate_number/3 when the :greater_than_or_equal_to
+      # option fails validation
       String.contains?(message, "greater than or equal to") ->
         "validation.number.greater_than_or_equal_to"
 
-      # Ecto.Changeset.validate_number/3 when the :less_than option fails validation
+      # Ecto.Changeset.validate_number/3 when the :less_than option
+      # fails validation
       String.contains?(message, "less than") ->
         "validation.number.less_than"
 
-      # Ecto.Changeset.validate_number/3 when the :greater_than option fails validation
+      # Ecto.Changeset.validate_number/3 when the :greater_than option
+      # fails validation
       String.contains?(message, "greater than") ->
         "validation.number.greater_than"
 
-      # Ecto.Changeset.validate_number/3 when the :equal_to option fails validation
+      # Ecto.Changeset.validate_number/3 when the :equal_to option
+      # fails validation
       String.contains?(message, "equal to") ->
         "validation.number.equal_to"
 
@@ -59,13 +65,14 @@ defmodule StrawHat.Error.ChangesetParser do
     end
   end
 
+  # @TODO: this is wrong, waiting for PR to be merged
   # - Ecto.Changeset.assoc_constraint/3
   # - Ecto.Changeset.cast_assoc/3
   # - Ecto.Changeset.put_assoc/3
   # - Ecto.Changeset.cast_embed/3
   # - Ecto.Changeset.put_embed/3
   defp do_get_code(%{message: "is invalid", type: _}),
-    do: get_constraint_code("assoc") # @TODO: this is wrong, waiting for PR to be merged
+    do: get_constraint_code("assoc")
 
   # Ecto.Changeset.unique_constraint/3
   defp do_get_code(%{message: "has already been taken"}),
@@ -92,7 +99,7 @@ defmodule StrawHat.Error.ChangesetParser do
   # - Ecto.Changeset.validate_change/4
   defp do_get_code(_unknown), do: "unknown"
 
-  def get_validation_code(validation_name), do: "validation." <> to_string(validation_name)
+  defp get_validation_code(validation_name), do: "validation." <> to_string(validation_name)
 
-  def get_constraint_code(constraint_name), do: "constraint." <> to_string(constraint_name)
+  defp get_constraint_code(constraint_name), do: "constraint." <> to_string(constraint_name)
 end
