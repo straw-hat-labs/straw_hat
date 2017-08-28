@@ -50,7 +50,6 @@ defmodule StrawHat.Mixfile do
       {:ecto, "~> 2.1", optional: true},
       {:absinthe, "~> 1.3", optional: true},
       {:poison, "~> 3.0", optional: true},
-      # {:poison, "~> 3.0", optional: true},
 
       # Tools
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
