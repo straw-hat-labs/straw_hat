@@ -24,8 +24,8 @@ defmodule StrawHat.GraphQL.Types do
     @desc "Identifier, use for know which error was"
     field :code, non_null(:string)
 
-    @desc "General description of error"
-    field :message, :string
+    @desc "Use for categorize the error"
+    field :type, :string
 
     @desc "Information relative to the error"
     field :metadata, list_of(:metadata)
@@ -53,7 +53,7 @@ defmodule StrawHat.GraphQL.Types do
     field :expiration_time, non_null(:integer)
   end
 
-  input_object :page_params do
+  input_object :page do
     @desc "Information relative to list page"
     field :page, non_null(:integer)
 
