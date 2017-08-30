@@ -1,6 +1,7 @@
 defmodule StrawHat.Error do
   alias StrawHat.Error.{ChangesetParser, ErrorList}
   alias StrawHat.Error
+  alias StrawHat.Error.ErrorMetadata
 
   @enforce_keys [:id, :code]
   defstruct [:id, :code, :type, :metadata]
@@ -14,7 +15,10 @@ defmodule StrawHat.Error do
   def new(code, params \\ [])
   def new(code, params) do
     type = Keyword.get(params, :type, "generic")
-    metadata = Keyword.get(params, :metadata, [])
+    metadata =
+      params
+      |> Keyword.get(:metadata, [])
+      |> ErrorMetadata.serialize()
 
     %Error{
       id: UUID.uuid1(),

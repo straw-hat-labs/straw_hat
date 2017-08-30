@@ -15,7 +15,6 @@ defmodule StrawHat.Error.ChangesetParser do
       opts
       |> tidy_opts()
       |> Keyword.put(:field_name, field)
-      |> Enum.map(&ErrorMetadata.new/1)
 
     error_tuple
     |> get_code()

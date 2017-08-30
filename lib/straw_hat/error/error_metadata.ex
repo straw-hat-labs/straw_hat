@@ -11,4 +11,6 @@ defmodule StrawHat.Error.ErrorMetadata do
       value: to_string(value)
     }
   end
+
+  def serialize(metadata), do: Enum.map(metadata, fn({key, value}) -> new(key, value) end)
 end
