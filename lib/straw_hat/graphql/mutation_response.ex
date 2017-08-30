@@ -13,13 +13,21 @@ defmodule StrawHat.GraphQL.MutationResponse do
     |> failed()
   end
   def failed(%ErrorList{} = error_list) do
-    %{successful: false,
+    response = %{
+      successful: false,
       errors: error_list.errors}
+
+    respond(response)
   end
   def failed(_), do: raise ArgumentError
 
   def succeeded(payload) do
-    %{successful: true,
+    response = %{
+      successful: true,
       payload: payload}
+
+    respond(response)
   end
+
+  defp respond(payload), do: {:ok, payload}
 end
