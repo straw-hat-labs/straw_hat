@@ -2,6 +2,11 @@ defmodule StrawHat.GraphQL.MutationResponse do
   alias StrawHat.Error
   alias StrawHat.Error.ErrorList
 
+  def failed(%Ecto.Changeset{} = changeset) do
+    changeset
+    |> Error.new()
+    |> failed()
+  end
   def failed(%Error{} = error) do
     [error]
     |> ErrorList.new()
