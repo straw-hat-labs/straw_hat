@@ -24,8 +24,8 @@ defmodule StrawHat.GraphQL.Types do
     @desc "Identifier, use for know which error was"
     field :code, non_null(:string)
 
-    @desc "Use for categorize the error"
-    field :type, :string
+    @desc "General description of error"
+    field :message, :string
 
     @desc "Information relative to the error"
     field :metadata, list_of(:metadata)
@@ -43,5 +43,21 @@ defmodule StrawHat.GraphQL.Types do
 
     @desc "When paginating forwards, the cursor to continue."
     field :end_cursor, :string
+  end
+
+  object :session do
+    @desc "Information about authenticate token"
+    field :access_token, non_null(:string)
+
+    @desc "Information about token expiration"
+    field :expiration_time, non_null(:integer)
+  end
+
+  input_object :page_params do
+    @desc "Information relative to list page"
+    field :page, non_null(:integer)
+
+    @desc "Information relative to page size for list"
+    field :page_size, non_null(:integer)
   end
 end
