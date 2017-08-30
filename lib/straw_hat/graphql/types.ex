@@ -44,4 +44,20 @@ defmodule StrawHat.GraphQL.Types do
     @desc "When paginating forwards, the cursor to continue."
     field :end_cursor, :string
   end
+
+  object :session do
+    @desc "Information about authenticate token"
+    field :access_token, non_null(:string)
+
+    @desc "Information about token expiration"
+    field :expiration_time, non_null(:integer)
+  end
+
+  input_object :page do
+    @desc "Information relative to list page"
+    field :page, non_null(:integer)
+
+    @desc "Information relative to page size for list"
+    field :page_size, non_null(:integer)
+  end
 end
