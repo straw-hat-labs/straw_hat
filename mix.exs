@@ -3,7 +3,7 @@ defmodule StrawHat.Mixfile do
 
   @elixir_version "~> 1.5"
   @name :straw_hat
-  @version "0.0.5"
+  @version "0.0.6"
   @description """
     StrawHat Utilities
   """
