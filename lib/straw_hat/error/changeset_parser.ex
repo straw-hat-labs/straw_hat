@@ -1,7 +1,6 @@
 defmodule StrawHat.Error.ChangesetParser do
   alias Ecto.Changeset
   alias StrawHat.Error
-  alias StrawHat.Error.ErrorMetadata
 
   def parse(changeset) do
     changeset
