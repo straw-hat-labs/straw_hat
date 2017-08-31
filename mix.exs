@@ -49,9 +49,9 @@ defmodule StrawHat.Mixfile do
   defp deps do
     [
       {:uuid, "~> 1.1"},
-      {:ecto, "~> 2.1"},
+      {:ecto, "~> 2.2"},
       {:absinthe, "~> 1.3"},
-      {:poison, "~> 3.0"},
+      {:poison, "~> 3.1"},
 
       # Tools
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
