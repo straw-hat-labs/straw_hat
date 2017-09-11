@@ -2,8 +2,6 @@ defmodule StrawHatTest.ErrorTest do
   use ExUnit.Case
   import Ecto.Changeset
 
-  doctest StrawHat.Error
-
   @types %{
     title: :string,
     terms_of_service: :boolean,
@@ -47,6 +45,10 @@ defmodule StrawHatTest.ErrorTest do
     |> validate_length(:title, is: 9)
     |> validate_number(:age, less_than: 99)
     |> validate_required(:missing_field)
+  end
+
+  test "get a error" do
+    assert %StrawHat.Error{} = StrawHat.Error.new("something")
   end
 
   describe "changetset" do
