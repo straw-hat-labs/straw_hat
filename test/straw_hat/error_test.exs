@@ -1,4 +1,4 @@
-defmodule StrawHatTest.ErrorTest do
+defmodule StrawHat.Test.ErrorTest do
   use ExUnit.Case
   import Ecto.Changeset
 
