@@ -1,5 +1,6 @@
 defmodule StrawHat.GraphQL.Types do
   use Absinthe.Schema.Notation
+  alias StrawHat.GraphQL.Resolver.MetadataResolver
 
   interface :node do
     field :id, non_null(:id)
@@ -14,8 +15,12 @@ defmodule StrawHat.GraphQL.Types do
   end
 
   object :metadata do
-    field :key, :string
-    field :value, :string
+    field :key, :string do
+      resolve &MetadataResolver.key/3
+    end
+    field :value, :string do
+      resolve &MetadataResolver.value/3
+    end
   end
 
   object :error do
