@@ -16,21 +16,24 @@ defmodule StrawHat.Error.ErrorMetadata do
   defstruct [:key, :value]
 
   @doc """
-  Creates an `%ErrorMetadata{}`.
+  Creates a `%ErrorMetadata{}`.
   """
   @spec new({String.t | atom, any}) :: t
   def new({key, value} = _value_tuple), do: new(key, value)
 
   @doc """
-  Creates an `%ErrorMetadata{}`.
+  Creates a `%ErrorMetadata{}`.
   """
   @spec new(atom | String.t, any) :: t
   def new(key, value) do
     %ErrorMetadata{
       key: to_string(key),
-      value: to_string(value)
-    }
+      value: to_string(value)}
   end
 
+  @doc """
+  Serialize a Keyword list into a list of `%ErrorMetadata{}`.
+  """
+  @spec serialize(Keyword.t) :: [t]
   def serialize(metadata), do: Enum.map(metadata, fn({key, value}) -> new(key, value) end)
 end
