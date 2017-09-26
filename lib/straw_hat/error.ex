@@ -34,7 +34,7 @@ defmodule StrawHat.Error do
   defstruct [:id, :code, :type, :metadata]
 
   @doc """
-  Converts an `Ecto.Changeset` to `%StrawHat.Error.ErrorList{}` error.
+  Converts an `%Ecto.Changeset{}` to `%StrawHat.Error.ErrorList{}` error.
   """
   @spec new(Ecto.Changeset.t) :: StrawHat.Error.ErrorList.t
   def new(%Ecto.Changeset{} = changeset) do
@@ -44,7 +44,7 @@ defmodule StrawHat.Error do
   end
 
   @doc """
-  Returns an `%StrawHat.Error{}`.
+  Returns a `%StrawHat.Error{}`.
   """
   @spec new(String.t, opts) :: t
   def new(code, opts \\ []) do
