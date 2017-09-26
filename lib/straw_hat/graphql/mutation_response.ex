@@ -6,10 +6,18 @@ defmodule StrawHat.GraphQL.MutationResponse do
   alias StrawHat.Error
   alias StrawHat.Error.ErrorList
 
+  @typedoc """
+  - `successful`: When the mutation succeeded or not.
+  - `payload`: Data of the mutation payload.
+  - `errors`: List of `StrawHat.Error`.
+  """
   @type mutation_response :: %{successful: boolean,
                                payload: any,
                                errors: [StrawHat.Error.t]}
 
+  @doc """
+  Returns a failed mutation response map.
+  """
   @spec failed(Ecto.Changeset.t) :: {:ok, mutation_response}
   def failed(%Ecto.Changeset{} = changeset) do
     changeset
@@ -30,9 +38,13 @@ defmodule StrawHat.GraphQL.MutationResponse do
 
     respond(response)
   end
-  @spec failed(any) :: no_return
+  @spec failed(_) :: no_return
   def failed(_), do: raise ArgumentError
 
+  @doc """
+  Returns a succeeded mutation response map.
+  """
+  @spec succeeded(any) :: {:ok, mutation_response}
   def succeeded(payload) do
     response = %{
       successful: true,
