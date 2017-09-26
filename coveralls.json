@@ -1,0 +1,7 @@
+{
+  "skip_files": [
+    "lib/straw_hat.ex",
+    "lib/straw_hat/graphql/scalars.ex",
+    "lib/straw_hat/graphql/types.ex"
+  ]
+}
