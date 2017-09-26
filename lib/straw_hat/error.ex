@@ -20,11 +20,11 @@ defmodule StrawHat.Error do
         user -> {:ok, user}
       end
   """
+
   alias StrawHat.Error
   alias StrawHat.Error.{ChangesetParser, ErrorList, ErrorMetadata}
 
   @type opts :: [type: String.t, metadata: Keyword.t]
-
   @type t :: %StrawHat.Error{id: String.t,
                              code: String.t,
                              type: String.t,
@@ -44,7 +44,7 @@ defmodule StrawHat.Error do
   end
 
   @doc """
-  Returns an `%StrawHat.Error{}` error.
+  Returns an `%StrawHat.Error{}`.
   """
   @spec new(String.t, opts) :: t
   def new(code, opts \\ []) do
