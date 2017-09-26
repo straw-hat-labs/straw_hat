@@ -4,25 +4,18 @@ defmodule StrawHat.Test.ErrorTest do
 
   @types %{
     title: :string,
-    terms_of_service: :boolean,
     password: :string,
     password_confirmation: :string,
-    name: :string,
-    email: :string,
-    age: :integer,
-    missing_field: :boolean
+    email: :string
   }
 
   @default %{title: "bar"}
 
   @params %{
     "title" => "foobar",
-    "terms_of_service" => false,
     "password" => "123",
     "password_confirmation" => "1234",
-    "name" => "admin",
-    "email" => "invalid.com",
-    "age" => 100
+    "email" => "invalid.com"
   }
 
   defp get_changeset(params) do
@@ -30,25 +23,12 @@ defmodule StrawHat.Test.ErrorTest do
 
     {@default, @types}
     |> cast(params, type_keys)
-    |> validate_acceptance(:terms_of_service)
-    |> validate_change(:title, fn :title, title ->
-      if title == "foobar" do
-        [title: {"cannot be foo", [validation: :cant_be, value: "foobar"]}]
-      else
-        []
-      end
-    end)
     |> validate_confirmation(:password)
-    |> validate_exclusion(:name, ~w(admin superadmin))
-    |> validate_format(:email, ~r/@/)
-    |> validate_inclusion(:age, 0..99)
     |> validate_length(:title, is: 9)
-    |> validate_number(:age, less_than: 99)
-    |> validate_required(:missing_field)
   end
 
   test "get a error" do
-    assert %StrawHat.Error{} = StrawHat.Error.new("something")
+    assert %StrawHat.Error{code: "something"} = StrawHat.Error.new("something")
   end
 
   describe "changetset" do
@@ -57,8 +37,12 @@ defmodule StrawHat.Test.ErrorTest do
         @params
         |> get_changeset()
         |> StrawHat.Error.new()
+      error_list_codes = Enum.map(error_list, fn error ->  error.code end)
 
       assert %StrawHat.Error.ErrorList{} = error_list
+
+      assert  error_list_codes == ["ecto.changeset.validation.confirmation",
+                                   "ecto.changeset.validation.length"]
     end
   end
 end
