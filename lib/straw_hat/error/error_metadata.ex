@@ -2,15 +2,14 @@ defmodule StrawHat.Error.ErrorMetadata do
   @moduledoc """
   Metadata used on `%StrawHat.Error{}`. It is a representation of key value
   pair into `%StrawHat.Error.ErrorMetadata{}`. Mostly used throw `StrawHat.Error`.
-
-  ## %StrawHat.Error.ErrorMetadata{}
-
-    * `key`: Key of the metadata
-    * `value`: Value of the metadata
   """
 
   alias StrawHat.Error.ErrorMetadata
 
+  @typedoc """
+  * `key`: Key of the metadata
+  * `value`: Value of the metadata
+  """
   @type t :: %StrawHat.Error.ErrorMetadata{key: String.t, value: String.t}
 
   @enforce_keys [:key, :value]

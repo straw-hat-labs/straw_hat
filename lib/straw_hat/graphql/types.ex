@@ -1,4 +1,7 @@
 defmodule StrawHat.GraphQL.Types do
+  @moduledoc """
+  Common Absinthe Types.
+  """
   use Absinthe.Schema.Notation
   alias StrawHat.GraphQL.Resolver.MetadataResolver
 
@@ -10,7 +13,7 @@ defmodule StrawHat.GraphQL.Types do
     @desc "If the mutation happened without any problem"
     field :successful, non_null(:boolean)
 
-    @desc "List of errors when the mutation fail (success: false)"
+    @desc "List of errors when the mutation failed (successful: false)"
     field :errors, list_of(:error)
   end
 
@@ -26,10 +29,10 @@ defmodule StrawHat.GraphQL.Types do
   object :error do
     field :id, non_null(:id)
 
-    @desc "Identifier, use for know which error was"
+    @desc "Identifier of the error"
     field :code, non_null(:string)
 
-    @desc "Use for categorize the error"
+    @desc "Categorize or group the error"
     field :type, :string
 
     @desc "Information relative to the error"
@@ -37,16 +40,16 @@ defmodule StrawHat.GraphQL.Types do
   end
 
   object :cursor_pagination_info do
-    @desc "When paginating backwards, are there more items?"
+    @desc "If there is more items when paginating backwards"
     field :has_previous_page, non_null(:boolean)
 
-    @desc "When paginating forwards, are there more items?"
+    @desc "If there is more items when paginating forwards"
     field :has_next_page, non_null(:boolean)
 
-    @desc "When paginating backwards, the cursor to continue."
+    @desc "Cursor to the next item when paginating backwards"
     field :start_cursor, :string
 
-    @desc "When paginating forwards, the cursor to continue."
+    @desc "Cursor to the next item when paginating forwards"
     field :end_cursor, :string
   end
 end

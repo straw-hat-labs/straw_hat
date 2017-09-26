@@ -1,13 +1,13 @@
 defmodule StrawHat.GraphQL.Scalars do
+  @moduledoc """
+  Common Absinthe Scalars.
+  """
+
   use Absinthe.Schema.Notation
+  alias StrawHat.GraphQL.Scalar.JSON
 
   scalar :json, name: "JSON" do
-    parse fn %{value: value} ->
-      case Poison.decode(value) do
-        {:ok, result} -> {:ok, result}
-        _ -> :error
-      end
-    end
-    serialize &Poison.encode!/1
+    parse &JSON.parse/1
+    serialize &JSON.serialize/1
   end
 end
