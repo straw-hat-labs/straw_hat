@@ -7,8 +7,8 @@ defmodule StrawHat.Error.ErrorMetadata do
   alias StrawHat.Error.ErrorMetadata
 
   @typedoc """
-  * `key`: Key of the metadata
-  * `value`: Value of the metadata
+  - `key`: Key of the metadata.
+  - `value`: Value of the metadata.
   """
   @type t :: %StrawHat.Error.ErrorMetadata{key: String.t, value: String.t}
 

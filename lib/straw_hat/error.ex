@@ -19,11 +19,11 @@ defmodule StrawHat.Error do
   @type opts :: [type: String.t, metadata: Keyword.t]
 
   @typedoc """
-  * `id`: Unique identifier setup by the System. Used for tracking, it's unique
+  - `id`: Unique identifier setup by the System. Used for tracking, it's unique
 per instance of the Error. Default: `UUID.uuid1()`.
-  * `code`: Represent the ID defined by your system designed. Example: `"straw_hat.validation.required"`
-  * `type`:  Categorize/Group your errors. Default `"generic"`.
-  * `metadata`: A set of key value with useful information about the error.
+  - `code`: Represent the ID defined by your system designed. Example: `"straw_hat.validation.required"`
+  - `type`:  Categorize/Group your errors. Default `"generic"`.
+  - `metadata`: A set of key value with useful information about the error.
   """
   @type t :: %StrawHat.Error{id: String.t,
                              code: String.t,

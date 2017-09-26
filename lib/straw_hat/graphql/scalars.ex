@@ -1,6 +1,9 @@
 defmodule StrawHat.GraphQL.Scalars do
   @moduledoc """
   Common Absinthe Scalars.
+
+  ## Scalars
+  - :json
   """
 
   use Absinthe.Schema.Notation

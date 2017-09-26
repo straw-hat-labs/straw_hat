@@ -1,6 +1,14 @@
 defmodule StrawHat.GraphQL.Types do
   @moduledoc """
   Common Absinthe Types.
+
+  ## Interfaces
+  - node
+  - mutation_response
+
+  ## Objects
+  - metadata
+  - error
   """
   use Absinthe.Schema.Notation
   alias StrawHat.GraphQL.Resolver.MetadataResolver
@@ -37,19 +45,5 @@ defmodule StrawHat.GraphQL.Types do
 
     @desc "Information relative to the error"
     field :metadata, list_of(:metadata)
-  end
-
-  object :cursor_pagination_info do
-    @desc "If there is more items when paginating backwards"
-    field :has_previous_page, non_null(:boolean)
-
-    @desc "If there is more items when paginating forwards"
-    field :has_next_page, non_null(:boolean)
-
-    @desc "Cursor to the next item when paginating backwards"
-    field :start_cursor, :string
-
-    @desc "Cursor to the next item when paginating forwards"
-    field :end_cursor, :string
   end
 end

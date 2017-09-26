@@ -6,7 +6,7 @@ defmodule StrawHat.Error.ErrorList do
   alias StrawHat.Error.ErrorList
 
   @typedoc """
-  * `errors`: List of StrawHat.Error
+  - `errors`: List of `StrawHat.Error`.
   """
   @type t :: %StrawHat.Error.ErrorList{errors: list(StrawHat.Error.t)}
 
