@@ -1,21 +1,16 @@
 # StrawHat
 
-**TODO: Add description**
+Utility package, it's just the representation of ***Conway's Law***. There
+is some modules for Error handling and GraphQL (for now 😅). Probably will be
+breaking down to more than one package in the future if this keep growing too
+much. For now, it is easier for us to maintain.
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `straw_hat` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:straw_hat, ">= 0.0.0"}
+    {:straw_hat, "~> 0.0.11"}
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/straw_hat](https://hexdocs.pm/straw_hat).
-

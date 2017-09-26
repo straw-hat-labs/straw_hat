@@ -5,7 +5,6 @@ defmodule StrawHat.Mixfile do
 
   @elixir_version "~> 1.5"
   @name :straw_hat
-  @organization "straw_hat"
   @description """
     StrawHat Utilities
   """
@@ -54,8 +53,9 @@ defmodule StrawHat.Mixfile do
       {:poison, "~> 3.1"},
 
       # Tools
+      {:dialyxir, "~> 0.5", only: :dev, runtime: false},
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
-      {:excoveralls, ">= 0.0.0", only: :test},
+      {:excoveralls, ">= 0.0.0", only: :test, runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
@@ -63,7 +63,6 @@ defmodule StrawHat.Mixfile do
   defp package do
     [
       name: @name,
-      organization: @organization,
       files: [
         "lib",
         "mix.exs",
