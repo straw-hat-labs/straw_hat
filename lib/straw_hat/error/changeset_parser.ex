@@ -1,7 +1,15 @@
 defmodule StrawHat.Error.ChangesetParser do
+  @moduledoc """
+  Ecto.Changeset parser that transforms the Ecto.Changeset errors into
+  `%StrawHat.Error{}`.
+  """
   alias Ecto.Changeset
   alias StrawHat.Error
 
+  @doc """
+  Parse an `%Ecto.Changeset{}` errors into a list of `%StrawHat.Error{}`.
+  """
+  @spec parse(Ecto.Changeset.t) :: [StrawHat.Error.t]
   def parse(changeset) do
     changeset
     |> Changeset.traverse_errors(&construct_error/3)
