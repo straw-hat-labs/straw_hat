@@ -38,7 +38,7 @@ defmodule StrawHat.GraphQL.MutationResponse do
 
     respond(response)
   end
-  @spec failed(_) :: no_return
+  @spec failed(any) :: no_return
   def failed(_), do: raise ArgumentError
 
   @doc """

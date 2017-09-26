@@ -7,7 +7,7 @@ defmodule StrawHat.GraphQL.Types do
   - mutation_response
 
   ## Objects
-  - metadata
+  - error_metadata
   - error
   """
   use Absinthe.Schema.Notation
@@ -25,7 +25,7 @@ defmodule StrawHat.GraphQL.Types do
     field :errors, list_of(:error)
   end
 
-  object :metadata do
+  object :error_metadata do
     field :key, :string do
       resolve &MetadataResolver.key/3
     end
