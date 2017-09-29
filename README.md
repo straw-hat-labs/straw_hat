@@ -10,7 +10,7 @@ much. For now, it is easier for us to maintain.
 ```elixir
 def deps do
   [
-    {:straw_hat, "~> 0.0.11"}
+    {:straw_hat, "~> 0.1.0"}
   ]
 end
 ```
