@@ -28,7 +28,7 @@ defmodule StrawHat.Mixfile do
       source_url: @source_url,
       homepage_url: @source_url,
       docs: [
-        main: "StrawHat",
+        main: "README",
         extras: ["README.md"]
       ],
 
