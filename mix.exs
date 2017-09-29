@@ -1,7 +1,7 @@
 defmodule StrawHat.Mixfile do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
 
   @elixir_version "~> 1.5"
   @name :straw_hat
@@ -28,7 +28,7 @@ defmodule StrawHat.Mixfile do
       source_url: @source_url,
       homepage_url: @source_url,
       docs: [
-        main: "README",
+        main: "readme",
         extras: ["README.md"]
       ],
 
