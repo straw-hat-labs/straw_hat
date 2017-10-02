@@ -1,43 +1,34 @@
 defmodule StrawHat.Mixfile do
   use Mix.Project
 
-  @version "0.1.1"
-
-  @elixir_version "~> 1.5"
   @name :straw_hat
+  @version "0.1.1"
+  @elixir_version "~> 1.5"
+
   @description """
-    StrawHat Utilities
+    StrawHat Utilities.
   """
-  @source_url "https://github.com/straw-hat-llc/straw_hat"
+  @source_url "https://github.com/straw-hat-team/straw_hat"
 
   def project do
-    production? = Mix.env == :prod
-
     [
-      app: @name,
+      name: "StrawHat",
       description: @description,
+
+      app: @name,
       version: @version,
       elixir: @elixir_version,
-      build_embedded: production?,
-      start_permanent: production?,
       deps: deps(),
-      package: package(),
 
-      # docs
-      name: "StrawHat",
-      source_url: @source_url,
-      homepage_url: @source_url,
-      docs: [
-        main: "readme",
-        extras: ["README.md"]
-      ],
-
-      # coverage
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         "coveralls": :test,
         "coveralls.html": :test
-      ]
+      ],
+
+      # Extras
+      package: package(),
+      docs: docs()
     ]
   end
 
@@ -72,6 +63,16 @@ defmodule StrawHat.Mixfile do
       maintainers: ["Yordis Prieto"],
       licenses: ["MIT"],
       links: %{"GitHub" => @source_url}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      homepage_url: @source_url,
+      source_ref: "v#{@version}",
+      source_url: @source_url,
+      extras: ["README.md"]
     ]
   end
 end
