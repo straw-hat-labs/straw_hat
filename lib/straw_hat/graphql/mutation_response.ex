@@ -1,6 +1,23 @@
 defmodule StrawHat.GraphQL.MutationResponse do
   @moduledoc """
-  Absinthe Mutation Response utilities. Normally will be use in Absinthe resolvers.
+  Absinthe Mutation Response utilities. Normally will be use in Absinthe
+  resolvers.
+
+  ### Usage
+
+  On the resolver.
+
+      defmodule App.AccountResolver do
+
+        alias StrawHat.GraphQL.MutationResponse
+
+        def create_account(params, _) do
+          case App.Account.create_account(params) do
+            {:ok, account} -> MutationResponse.succeeded(account)
+            {:error, reason} -> MutationResponse.failed(reason)
+          end
+        end
+      end
   """
 
   alias StrawHat.Error
