@@ -44,6 +44,6 @@ defmodule StrawHat.GraphQL.Types do
     field :type, :string
 
     @desc "Information relative to the error"
-    field :metadata, list_of(:metadata)
+    field :metadata, list_of(:error_metadata)
   end
 end
