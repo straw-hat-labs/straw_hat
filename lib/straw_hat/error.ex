@@ -13,7 +13,6 @@ defmodule StrawHat.Error do
       end
   """
 
-  alias StrawHat.Error
   alias StrawHat.Error.{ChangesetParser, ErrorList, ErrorMetadata}
 
   @type opts :: [type: String.t, metadata: Keyword.t]
@@ -25,16 +24,18 @@ per instance of the Error. Default: `UUID.uuid1()`.
   - `type`:  Categorize/Group your errors. Default `"generic"`.
   - `metadata`: A set of key value with useful information about the error.
   """
-  @type t :: %StrawHat.Error{id: String.t,
-                             code: String.t,
-                             type: String.t,
-                             metadata: ErrorMetadata.t}
+  @type t :: %__MODULE__{
+    id: String.t,
+    code: String.t,
+    type: String.t,
+    metadata: ErrorMetadata.t
+  }
 
   @enforce_keys [:id, :code]
   defstruct [:id, :code, :type, :metadata]
 
   @doc """
-  Converts an `%Ecto.Changeset{}` to `%StrawHat.Error.ErrorList{}` error.
+  Converts an `t:Ecto.Changeset.t/0` to `t:StrawHat.Error.ErrorList.t/0` error.
   """
   @spec new(Ecto.Changeset.t) :: StrawHat.Error.ErrorList.t
   def new(%Ecto.Changeset{} = changeset) do
@@ -44,7 +45,7 @@ per instance of the Error. Default: `UUID.uuid1()`.
   end
 
   @doc """
-  Returns a `%StrawHat.Error{}`.
+  Returns a `t:StrawHat.Error.t/0`.
   """
   @spec new(String.t, opts) :: t
   def new(code, opts \\ []) do
@@ -54,7 +55,7 @@ per instance of the Error. Default: `UUID.uuid1()`.
       |> Keyword.get(:metadata, [])
       |> ErrorMetadata.serialize()
 
-    %Error{
+    %__MODULE__{
       id: UUID.uuid1(),
       code: code,
       type: type,

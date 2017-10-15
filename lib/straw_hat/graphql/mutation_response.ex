@@ -26,7 +26,7 @@ defmodule StrawHat.GraphQL.MutationResponse do
   @typedoc """
   - `successful`: When the mutation succeeded or not.
   - `payload`: Data of the mutation payload.
-  - `errors`: List of `StrawHat.Error`.
+  - `errors`: List of `t:StrawHat.Error.t/0`.
   """
   @type mutation_response :: %{successful: boolean,
                                payload: any,

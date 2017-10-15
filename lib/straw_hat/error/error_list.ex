@@ -1,22 +1,22 @@
 defmodule StrawHat.Error.ErrorList do
   @moduledoc """
-  Data structure that represents a list of `StrawHat.Error`.
+  Data structure that represents a list of `t:StrawHat.Error.t/0`.
   """
-
-  alias StrawHat.Error.ErrorList
 
   @typedoc """
-  - `errors`: List of `StrawHat.Error`.
+  List of Errors.
+
+  - `errors`: List of `t:StrawHat.Error.t/0`.
   """
-  @type t :: %StrawHat.Error.ErrorList{errors: [StrawHat.Error.t]}
+  @type t :: %__MODULE__{errors: [StrawHat.Error.t]}
 
   defstruct [errors: []]
 
   @doc """
-  Creates a `StrawHat.Error.ErrorList`
+  Creates a `t:StrawHat.Error.ErrorList.t/0`
   """
   @spec new([StrawHat.Error.t]) :: t
-  def new(errors), do: %ErrorList{errors: errors}
+  def new(errors), do: %__MODULE__{errors: errors}
 end
 
 defimpl Enumerable, for: StrawHat.Error.ErrorList do

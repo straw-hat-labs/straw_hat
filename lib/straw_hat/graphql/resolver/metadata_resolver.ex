@@ -1,7 +1,7 @@
 defmodule StrawHat.GraphQL.Resolver.MetadataResolver do
   @moduledoc """
   It is been used on `metadata object type` of the graph, it is
-  `StrawHat.Error.Metadata` mapping. It converts the `key` and `value` to
+  `t:StrawHat.Error.ErrorMetadata.t/0` mapping. It converts the `key` and `value` to
   the proper  values for the GraphQL.
   """
 
@@ -48,7 +48,7 @@ defmodule StrawHat.GraphQL.Resolver.MetadataResolver do
   expect `passwordConfirmation` from the client and it will convert it into
   `password_confirmation`. So we need to convert it back into `passwordConfirmation`
   for the `key` of that metadata. Check `StrawHat.Error.ChangesetParser` so you
-  could understand more how we use `field_name` from Ecto.Changeset.
+  could understand more how we use `field_name` from `Ecto.Changeset`.
   """
   @spec value(%{key: String.t, value: String.t}, any, %{adapter: Absinthe.Adapter.t}) :: {:ok, String.t}
   def value(%{key: "field_name", value: value}, _args, %{adapter: adapter} = _resolution) do
