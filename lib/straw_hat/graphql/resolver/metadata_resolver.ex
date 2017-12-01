@@ -8,7 +8,7 @@ defmodule StrawHat.GraphQL.Resolver.MetadataResolver do
   @doc """
   Converts the `key` from the map using Absinthe Adapter.
   """
-  @spec key(%{key: String.t}, any, %{adapter: Absinthe.Adapter.t}) :: {:ok, String.t}
+  @spec key(%{key: String.t()}, any, %{adapter: Absinthe.Adapter.t()}) :: {:ok, String.t()}
   def key(%{key: key}, _args, %{adapter: adapter} = _resolution) do
     {:ok, adapter.to_external_name(key, :field)}
   end
@@ -50,10 +50,12 @@ defmodule StrawHat.GraphQL.Resolver.MetadataResolver do
   for the `key` of that metadata. Check `StrawHat.Error.ChangesetParser` so you
   could understand more how we use `field_name` from `Ecto.Changeset`.
   """
-  @spec value(%{key: String.t, value: String.t}, any, %{adapter: Absinthe.Adapter.t}) :: {:ok, String.t}
+  @spec value(%{key: String.t(), value: String.t()}, any, %{adapter: Absinthe.Adapter.t()}) ::
+          {:ok, String.t()}
   def value(%{key: "field_name", value: value}, _args, %{adapter: adapter} = _resolution) do
     {:ok, adapter.to_external_name(value, :field)}
   end
-  @spec value(%{value: String.t}, any, any) :: {:ok, String.t}
+
+  @spec value(%{value: String.t()}, any, any) :: {:ok, String.t()}
   def value(%{value: value}, _args, _resolution), do: {:ok, value}
 end

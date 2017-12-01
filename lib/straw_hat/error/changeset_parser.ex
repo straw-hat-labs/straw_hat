@@ -9,12 +9,12 @@ defmodule StrawHat.Error.ChangesetParser do
   @doc """
   Parse an `%Ecto.Changeset{}` errors into a list of `%StrawHat.Error{}`.
   """
-  @spec parse(Ecto.Changeset.t) :: [StrawHat.Error.t]
+  @spec parse(Ecto.Changeset.t()) :: [StrawHat.Error.t()]
   def parse(changeset) do
     changeset
     |> Changeset.traverse_errors(&construct_error/3)
     |> Enum.to_list()
-    |> Enum.flat_map(fn({_field, values}) -> values end)
+    |> Enum.flat_map(fn {_field, values} -> values end)
   end
 
   defp construct_error(_changeset, field, {_message, opts} = error_tuple) do
@@ -25,7 +25,7 @@ defmodule StrawHat.Error.ChangesetParser do
 
     error_tuple
     |> get_code()
-    |> Error.new([type: "ecto_validation", metadata: metadata])
+    |> Error.new(type: "ecto_validation", metadata: metadata)
   end
 
   defp tidy_opts(opts), do: Keyword.drop(opts, [:validation, :constraint])
@@ -67,7 +67,8 @@ defmodule StrawHat.Error.ChangesetParser do
       String.contains?(message, "equal to") ->
         "validation.number.equal_to"
 
-      true -> :unknown
+      true ->
+        :unknown
     end
   end
 
@@ -77,26 +78,21 @@ defmodule StrawHat.Error.ChangesetParser do
   # - Ecto.Changeset.put_assoc/3
   # - Ecto.Changeset.cast_embed/3
   # - Ecto.Changeset.put_embed/3
-  defp do_get_code(%{message: "is invalid", type: _}),
-    do: get_constraint_code("assoc")
+  defp do_get_code(%{message: "is invalid", type: _}), do: get_constraint_code("assoc")
 
   # Ecto.Changeset.unique_constraint/3
-  defp do_get_code(%{message: "has already been taken"}),
-    do: get_constraint_code("unique")
+  defp do_get_code(%{message: "has already been taken"}), do: get_constraint_code("unique")
 
   # Ecto.Changeset.foreign_key_constraint/3
-  defp do_get_code(%{message: "does not exist"}),
-    do: get_constraint_code("foreign")
+  defp do_get_code(%{message: "does not exist"}), do: get_constraint_code("foreign")
 
   # Ecto.Changeset.no_assoc_constraint/3
   defp do_get_code(%{message: "is still associated with this entry"}),
     do: get_constraint_code("no_assoc")
 
-  defp do_get_code(%{validation: validation_name}),
-    do: get_validation_code(validation_name)
+  defp do_get_code(%{validation: validation_name}), do: get_validation_code(validation_name)
 
-  defp do_get_code(%{constraint: constraint_name}),
-    do: get_constraint_code(constraint_name)
+  defp do_get_code(%{constraint: constraint_name}), do: get_constraint_code(constraint_name)
 
   # Supplied when validation cannot be matched. This will also match
   # any custom errors added through

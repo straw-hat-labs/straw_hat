@@ -14,15 +14,13 @@ defmodule StrawHat.Mixfile do
     [
       name: "StrawHat",
       description: @description,
-
       app: @name,
       version: @version,
       elixir: @elixir_version,
       deps: deps(),
-
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
-        "coveralls": :test,
+        coveralls: :test,
         "coveralls.html": :test
       ],
 

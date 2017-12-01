@@ -37,12 +37,15 @@ defmodule StrawHat.Test.ErrorTest do
         @params
         |> get_changeset()
         |> StrawHat.Error.new()
+
       error_list_codes = Enum.map(error_list, fn error -> error.code end)
 
       assert %StrawHat.Error.ErrorList{} = error_list
 
-      assert  error_list_codes == ["ecto.changeset.validation.confirmation",
-                                   "ecto.changeset.validation.length"]
+      assert error_list_codes == [
+               "ecto.changeset.validation.confirmation",
+               "ecto.changeset.validation.length"
+             ]
     end
   end
 end

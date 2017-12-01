@@ -8,14 +8,14 @@ defmodule StrawHat.Error.ErrorList do
 
   - `errors`: List of `t:StrawHat.Error.t/0`.
   """
-  @type t :: %__MODULE__{errors: [StrawHat.Error.t]}
+  @type t :: %__MODULE__{errors: [StrawHat.Error.t()]}
 
-  defstruct [errors: []]
+  defstruct errors: []
 
   @doc """
   Creates a `t:StrawHat.Error.ErrorList.t/0`
   """
-  @spec new([StrawHat.Error.t]) :: t
+  @spec new([StrawHat.Error.t()]) :: t
   def new(errors), do: %__MODULE__{errors: errors}
 end
 

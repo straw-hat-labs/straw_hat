@@ -15,21 +15,21 @@ defmodule StrawHat.Error do
 
   alias StrawHat.Error.{ChangesetParser, ErrorList, ErrorMetadata}
 
-  @type opts :: [type: String.t, metadata: Keyword.t]
+  @type opts :: [type: String.t(), metadata: Keyword.t()]
 
   @typedoc """
   - `id`: Unique identifier setup by the System. Used for tracking, it's unique
-per instance of the Error. Default: `UUID.uuid1()`.
+  per instance of the Error. Default: `UUID.uuid1()`.
   - `code`: Represent the ID defined by your system designed. Example: `"straw_hat.validation.required"`
   - `type`:  Categorize/Group your errors. Default `"generic"`.
   - `metadata`: A set of key value with useful information about the error.
   """
   @type t :: %__MODULE__{
-    id: String.t,
-    code: String.t,
-    type: String.t,
-    metadata: ErrorMetadata.t
-  }
+          id: String.t(),
+          code: String.t(),
+          type: String.t(),
+          metadata: ErrorMetadata.t()
+        }
 
   @enforce_keys [:id, :code]
   defstruct [:id, :code, :type, :metadata]
@@ -37,7 +37,7 @@ per instance of the Error. Default: `UUID.uuid1()`.
   @doc """
   Converts an `t:Ecto.Changeset.t/0` to `t:StrawHat.Error.ErrorList.t/0` error.
   """
-  @spec new(Ecto.Changeset.t) :: StrawHat.Error.ErrorList.t
+  @spec new(Ecto.Changeset.t()) :: StrawHat.Error.ErrorList.t()
   def new(%Ecto.Changeset{} = changeset) do
     changeset
     |> ChangesetParser.parse()
@@ -47,18 +47,15 @@ per instance of the Error. Default: `UUID.uuid1()`.
   @doc """
   Returns a `t:StrawHat.Error.t/0`.
   """
-  @spec new(String.t, opts) :: t
+  @spec new(String.t(), opts) :: t
   def new(code, opts \\ []) do
     type = Keyword.get(opts, :type, "generic")
+
     metadata =
       opts
       |> Keyword.get(:metadata, [])
       |> ErrorMetadata.serialize()
 
-    %__MODULE__{
-      id: UUID.uuid1(),
-      code: code,
-      type: type,
-      metadata: metadata}
+    %__MODULE__{id: UUID.uuid1(), code: code, type: type, metadata: metadata}
   end
 end
