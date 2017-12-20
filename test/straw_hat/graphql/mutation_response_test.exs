@@ -23,8 +23,8 @@ defmodule StrawHat.Test.MutationResponseTest do
     assert response.payload.hello == "world"
   end
 
-  describe "failed" do
-    test "with a straw hat error" do
+  describe "failed/1" do
+    test "with an straw hat error" do
       error = StrawHat.Error.new("whatever")
       {:ok, response} = MutationResponse.failed(error)
 
@@ -32,7 +32,7 @@ defmodule StrawHat.Test.MutationResponseTest do
       assert List.first(response.errors).code == "whatever"
     end
 
-    test "with a ecto changeset" do
+    test "with an ecto changeset" do
       changeset = get_changeset(@params)
       {:ok, response} = MutationResponse.failed(changeset)
 
