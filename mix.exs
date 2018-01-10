@@ -6,7 +6,7 @@ defmodule StrawHat.Mixfile do
   @elixir_version "~> 1.5"
 
   @description """
-    StrawHat Utilities.
+  StrawHat Utilities.
   """
   @source_url "https://github.com/straw-hat-team/straw_hat"
 
