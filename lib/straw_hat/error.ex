@@ -13,7 +13,7 @@ defmodule StrawHat.Error do
       end
   """
 
-  alias StrawHat.Error.{ChangesetParser, ErrorList, ErrorMetadata}
+  alias StrawHat.Error.ErrorMetadata
 
   @type opts :: [type: String.t(), metadata: Keyword.t()]
 
@@ -34,20 +34,24 @@ defmodule StrawHat.Error do
   @enforce_keys [:id, :code]
   defstruct [:id, :code, :type, :metadata]
 
-  @doc """
-  Converts an `t:Ecto.Changeset.t/0` to `t:StrawHat.Error.ErrorList.t/0` error.
-  """
-  @spec new(Ecto.Changeset.t()) :: StrawHat.Error.ErrorList.t()
-  def new(%Ecto.Changeset{} = changeset) do
-    changeset
-    |> ChangesetParser.parse()
-    |> ErrorList.new()
+  if Code.ensure_loaded?(Ecto) do
+    alias StrawHat.Error.{ChangesetParser, ErrorList}
+
+    @doc """
+    Converts an `t:Ecto.Changeset.t/0` to `t:StrawHat.Error.ErrorList.t/0` error.
+    """
+    @spec new(Ecto.Changeset.t()) :: StrawHat.Error.ErrorList.t()
+    def new(%Ecto.Changeset{} = changeset) do
+      changeset
+      |> ChangesetParser.parse()
+      |> ErrorList.new()
+    end
   end
 
   @doc """
   Returns a `t:StrawHat.Error.t/0`.
   """
-  @spec new(String.t(), opts) :: t
+  @spec new(String.t(), opts()) :: t
   def new(code, opts \\ []) do
     type = Keyword.get(opts, :type, "generic")
 
