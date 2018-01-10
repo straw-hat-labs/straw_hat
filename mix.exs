@@ -2,7 +2,7 @@ defmodule StrawHat.Mixfile do
   use Mix.Project
 
   @name :straw_hat
-  @version "0.1.5"
+  @version "0.2.0"
   @elixir_version "~> 1.5"
 
   @description """
@@ -37,9 +37,7 @@ defmodule StrawHat.Mixfile do
   defp deps do
     [
       {:uuid, "~> 1.1"},
-      {:ecto, "~> 2.2"},
-      {:absinthe, "~> 1.3"},
-      {:poison, "~> 3.1"},
+      {:ecto, "~> 2.2", optional: true},
 
       # Tools
       {:dialyxir, ">= 0.0.0", only: [:dev], runtime: false},
