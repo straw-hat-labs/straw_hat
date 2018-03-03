@@ -4,8 +4,9 @@ defmodule StrawHat.Error do
   as much as we can.
 
   ### Usage
-  One example of the struct could be with Ecto. When you want to find some record
-  but it does not exists on the database.
+
+  One example of the struct could be with Ecto. When you want to find some
+  record but it does not exists on the database.
 
       case Repo.get(UserSchema, id) do
         nil -> {:error, StrawHat.Error.new("user.not_found", metadata: [user_id: id])}

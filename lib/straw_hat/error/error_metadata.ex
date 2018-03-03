@@ -1,7 +1,7 @@
 defmodule StrawHat.Error.ErrorMetadata do
   @moduledoc """
   Metadata used on `t:StrawHat.Error.t/0`. It is a representation of key value
-  pair into `t:StrawHat.Error.ErrorMetadata.t/0`. Most likely used throw
+  pair into `t:StrawHat.Error.ErrorMetadata.t/0`. Most likely used through
   `StrawHat.Error`.
   """
 
