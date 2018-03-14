@@ -1,4 +1,4 @@
-defmodule StrawHat.Map do
+defmodule StrawHat.Utils.Map do
   @moduledoc """
   Functions for transforming maps, keys and values.
   """

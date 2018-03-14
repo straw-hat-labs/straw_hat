@@ -1,6 +1,6 @@
 defmodule StrawHat.Test.MapTest do
   use ExUnit.Case
-  alias StrawHat.Map
+  alias StrawHat.Utils.Map
 
   describe "atomize_keys/2" do
     test "with only existing atoms" do
