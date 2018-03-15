@@ -6,8 +6,8 @@ defmodule StrawHat.Test.MapTest do
     test "with only existing atoms" do
       assert %{hello: "world"} == Map.atomize_keys(%{"hello" => "world"})
 
-      assert_raise ArgumentError,
-                   "\"PepeHands\" binary hasn't been used on the system as an atom",
+      assert_raise Map.AtomizeKeyError,
+                   "\"PepeHands\" binary hasn't been used on the system as an atom before",
                    fn ->
                      Map.atomize_keys(%{"PepeHands" => "kappa 123"})
                    end

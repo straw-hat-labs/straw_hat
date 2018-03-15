@@ -3,6 +3,16 @@ defmodule StrawHat.Utils.Map do
   Functions for transforming maps, keys and values.
   """
 
+  defmodule AtomizeKeyError do
+    @type t :: %__MODULE__{key: any}
+
+    defexception [:key]
+
+    def message(%{key: key}) do
+      "\"#{key}\" binary hasn't been used on the system as an atom before"
+    end
+  end
+
   @doc """
   Recursively traverse a map and invoke a function for each key/
   value pair that transforms the map.
@@ -157,7 +167,7 @@ defmodule StrawHat.Utils.Map do
     String.to_existing_atom(x)
   rescue
     ArgumentError ->
-      raise ArgumentError, "\"#{x}\" binary hasn't been used on the system as an atom"
+      raise AtomizeKeyError, key: x
   end
 
   defp atomize_element(x, false) when is_binary(x), do: String.to_atom(x)
