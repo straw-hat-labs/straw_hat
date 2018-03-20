@@ -1,4 +1,4 @@
-defmodule StrawHat.Test.ErrorTest do
+defmodule StrawHat.ErrorTest do
   use ExUnit.Case
   import Ecto.Changeset
 
@@ -31,21 +31,19 @@ defmodule StrawHat.Test.ErrorTest do
     assert %StrawHat.Error{code: "something"} = StrawHat.Error.new("something")
   end
 
-  describe "changeset" do
-    test "new/1 should get list of errors from Ecto.Changeset" do
-      error_list =
-        @params
-        |> get_changeset()
-        |> StrawHat.Error.new()
+  test "new/1 should get list of errors from Ecto.Changeset" do
+    error_list =
+      @params
+      |> get_changeset()
+      |> StrawHat.Error.new()
 
-      error_list_codes = Enum.map(error_list, fn error -> error.code end)
+    error_list_codes = Enum.map(error_list, fn error -> error.code end)
 
-      assert %StrawHat.Error.ErrorList{} = error_list
+    assert %StrawHat.Error.ErrorList{} = error_list
 
-      assert error_list_codes == [
-               "ecto.changeset.validation.confirmation",
-               "ecto.changeset.validation.length"
-             ]
-    end
+    assert error_list_codes == [
+             "ecto.changeset.validation.confirmation",
+             "ecto.changeset.validation.length"
+           ]
   end
 end

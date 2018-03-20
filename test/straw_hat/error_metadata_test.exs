@@ -1,4 +1,4 @@
-defmodule StrawHat.Test.ErrorMetadataTest do
+defmodule StrawHat.ErrorMetadataTest do
   use ExUnit.Case
 
   test "new/1 with tuple should create an ErrorMetadata" do

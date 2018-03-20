@@ -1,4 +1,4 @@
-defmodule StrawHat.Test.ErrorListTest do
+defmodule StrawHat.ErrorListTest do
   use ExUnit.Case
 
   describe "Enumerable protocol" do

@@ -8,6 +8,7 @@ defmodule StrawHat.Utils.Map do
 
     defexception [:key]
 
+    @spec message(%{key: String.t()}) :: String.t()
     def message(%{key: key}) do
       "\"#{key}\" binary hasn't been used on the system as an atom before"
     end
@@ -29,20 +30,18 @@ defmodule StrawHat.Utils.Map do
   * The `map` transformed by the recursive application of
     `function`
 
-  ## Example
-
-    iex> map = %{a: "a", b: %{c: "c"}}
-    iex> RobinCare.Web.Map.deep_map map, fn {k, v} ->
-    ...>   {k, String.upcase(v)}
-    ...> end
-    %{a: "A", b: %{c: "C"}}
+      iex> map = %{a: "a", b: %{c: "c"}}
+      iex> RobinCare.Web.Map.deep_map map, fn {k, v} ->
+      ...>   {k, String.upcase(v)}
+      ...> end
+      %{a: "A", b: %{c: "C"}}
 
   """
   @spec deep_map(Map.t(), function :: function()) :: Map.t()
 
   # Don't deep map structs since they have atom keys anyway and they
   # also don't support enumerable
-  def deep_map(%{__struct__: _any} = map, _function) when is_map(map) do
+  def deep_map(%{__struct__: _any} = map, _function) do
     map
   end
 
@@ -88,14 +87,11 @@ defmodule StrawHat.Utils.Map do
 
   * The `map` transformed by the recursive application of `key_function`
     and `value_function`
-
-  ## Examples
-
   """
   @spec deep_map(Map.t(), key_function :: function(), value_function :: function()) :: Map.t()
   def deep_map(map, key_function, value_function)
 
-  def deep_map(%{__struct__: _any} = map, _key_function, _value_function) when is_map(map) do
+  def deep_map(%{__struct__: _any} = map, _key_function, _value_function) do
     map
   end
 
@@ -159,9 +155,6 @@ defmodule StrawHat.Utils.Map do
   Transforms a `map`'s `atom()` keys to `String.t` keys.
 
   * `map` is any `Map.t`
-
-  ## Examples
-
   """
   def stringify_keys(map) do
     deep_map(
