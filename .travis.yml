@@ -11,6 +11,6 @@ script:
 after_script:
   - make docs
 
-  notifications:
+notifications:
   recipients:
     - engineers@straw-hat-llc.com
