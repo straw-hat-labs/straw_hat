@@ -1,6 +1,7 @@
 defmodule StrawHat.MapTest do
   use ExUnit.Case
   alias StrawHat.Utils.Map
+  doctest Map
 
   defmodule MyApp do
     defstruct [:name]

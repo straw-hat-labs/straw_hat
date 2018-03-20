@@ -1,6 +1,7 @@
 defmodule StrawHat.ErrorTest do
   use ExUnit.Case
   import Ecto.Changeset
+  doctest StrawHat.Error
 
   @types %{
     title: :string,

@@ -14,7 +14,7 @@ defmodule StrawHat.Utils.Map do
     end
   end
 
-  @doc """
+  @doc ~S"""
   Recursively traverse a map and invoke a function for each key/
   value pair that transforms the map.
 
@@ -30,8 +30,10 @@ defmodule StrawHat.Utils.Map do
   * The `map` transformed by the recursive application of
     `function`
 
+  ## Examples
+
       iex> map = %{a: "a", b: %{c: "c"}}
-      iex> RobinCare.Web.Map.deep_map map, fn {k, v} ->
+      iex> StrawHat.Utils.Map.deep_map map, fn {k, v} ->
       ...>   {k, String.upcase(v)}
       ...> end
       %{a: "A", b: %{c: "C"}}
