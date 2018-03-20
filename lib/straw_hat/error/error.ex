@@ -43,6 +43,7 @@ defmodule StrawHat.Error do
     @doc """
     Converts an `t:Ecto.Changeset.t/0` to `t:StrawHat.Error.ErrorList.t/0` error.
     """
+    @since "0.4.0"
     @spec new(Ecto.Changeset.t()) :: StrawHat.Error.ErrorList.t()
     def new(%Ecto.Changeset{} = changeset) do
       changeset
@@ -54,6 +55,7 @@ defmodule StrawHat.Error do
   @doc """
   Returns a `t:StrawHat.Error.t/0`.
   """
+  @since "0.4.0"
   @spec new(String.t(), opts()) :: t
   def new(code, opts \\ []) do
     type = Keyword.get(opts, :type, "generic")

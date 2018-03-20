@@ -48,6 +48,7 @@ defmodule StrawHat.Utils.Map do
     map
   end
 
+  @since "0.4.0"
   def deep_map(map, function) when is_map(map) do
     map
     |> Enum.map(fn
@@ -60,14 +61,17 @@ defmodule StrawHat.Utils.Map do
     |> Enum.into(%{})
   end
 
+  @since "0.4.0"
   def deep_map([head | rest], fun) do
     [deep_map(head, fun) | deep_map(rest, fun)]
   end
 
+  @since "0.4.0"
   def deep_map(nil, _fun) do
     nil
   end
 
+  @since "0.4.0"
   def deep_map(value, fun) do
     fun.(value)
   end
@@ -94,11 +98,12 @@ defmodule StrawHat.Utils.Map do
   @since "0.4.0"
   @spec deep_map(Map.t(), key_function :: function(), value_function :: function()) :: Map.t()
   def deep_map(map, key_function, value_function)
-
+  @since "0.4.0"
   def deep_map(%{__struct__: _any} = map, _key_function, _value_function) do
     map
   end
 
+  @since "0.4.0"
   def deep_map(map, key_function, value_function) when is_map(map) do
     map
     |> Enum.map(fn
@@ -111,14 +116,17 @@ defmodule StrawHat.Utils.Map do
     |> Enum.into(%{})
   end
 
+  @since "0.4.0"
   def deep_map([head | rest], key_fun, value_fun) do
     [deep_map(head, key_fun, value_fun) | deep_map(rest, key_fun, value_fun)]
   end
 
+  @since "0.4.0"
   def deep_map(nil, _key_fun, _value_fun) do
     nil
   end
 
+  @since "0.4.0"
   def deep_map(value, _key_fun, value_fun) do
     value_fun.(value)
   end
@@ -191,6 +199,8 @@ defmodule StrawHat.Utils.Map do
     end
   end
 
+  @since "0.4.0"
   defp atomize_element(x, false) when is_binary(x), do: String.to_atom(x)
+  @since "0.4.0"
   defp atomize_element(x, _), do: x
 end
