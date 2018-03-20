@@ -24,6 +24,7 @@ defmodule StrawHat.Response do
       ...> "oops" |> StrawHat.Response.error() |> StrawHat.Response.and_then(business_logic)
       {:error, "oops"}
   """
+  @since "0.4.0"
   @spec and_then(result_tuple, (any -> result_tuple)) :: result_tuple
   def and_then({:ok, data}, function), do: function.(data)
   def and_then({:error, _} = error, _function), do: error
@@ -44,6 +45,7 @@ defmodule StrawHat.Response do
       ...> "oops" |> StrawHat.Response.error() |> StrawHat.Response.either(on_error, on_ok)
       "Error: oops"
   """
+  @since "0.4.0"
   @spec either(result_tuple, (any -> any), (any -> any)) :: any
   def either({:ok, data}, _, on_ok), do: on_ok.(data)
   def either({:error, error}, on_error, _), do: on_error.(error)
@@ -56,6 +58,7 @@ defmodule StrawHat.Response do
       iex> StrawHat.Response.error("oops")
       {:error, "oops"}
   """
+  @since "0.4.0"
   @spec error(any) :: error_tuple
   def error(value), do: {:error, value}
 
@@ -70,6 +73,7 @@ defmodule StrawHat.Response do
       iex> 2 |>StrawHat.Response.error() |> StrawHat.Response.error?()
       true
   """
+  @since "0.4.0"
   @spec error?(result_tuple) :: boolean
   def error?({:error, _}), do: true
   def error?({:ok, _}), do: false
@@ -86,6 +90,7 @@ defmodule StrawHat.Response do
       iex> StrawHat.Response.from_value(42)
       {:ok, 42}
   """
+  @since "0.4.0"
   @spec from_value(any) :: result_tuple
   def from_value(value, on_nil_value \\ :no_value)
   def from_value(nil, on_nil_value), do: error(on_nil_value)
@@ -108,9 +113,11 @@ defmodule StrawHat.Response do
       ...> StrawHat.Response.keep_if(res, &(&1 > 10), "must be > of 10")
       {:error, :no_value}
   """
+  @since "0.4.0"
   @spec keep_if(result_tuple, (any -> boolean), any) :: result_tuple
   def keep_if(result, predicate, error_message \\ :invalid)
   def keep_if({:error, _} = error, _predicate, _error_message), do: error
+
   def keep_if({:ok, value} = ok, predicate, error_message) do
     if predicate.(value), do: ok, else: error(error_message)
   end
@@ -129,6 +136,7 @@ defmodule StrawHat.Response do
       ...> "oops" |> StrawHat.Response.error() |> StrawHat.Response.map(business_logic)
       {:error, "oops"}
   """
+  @since "0.4.0"
   @spec map(result_tuple, (any -> any)) :: result_tuple
   def map({:ok, data}, function), do: ok(function.(data))
   def map({:error, _} = error, _function), do: error
@@ -147,9 +155,12 @@ defmodule StrawHat.Response do
       ...> "oops" |> StrawHat.Response.error() |> StrawHat.Response.map_error(better_error)
       {:error, "A better error message"}
   """
+  @since "0.4.0"
   @spec map_error(result_tuple, (any -> any)) :: result_tuple
   def map_error({:ok, _} = data, _function), do: data
-  def map_error({:error, _} = error, function), do: or_else(error, fn x -> error(function.(x)) end)
+
+  def map_error({:error, _} = error, function),
+    do: or_else(error, fn x -> error(function.(x)) end)
 
   @doc ~S"""
   Creates a new ok result tuple.
@@ -159,6 +170,7 @@ defmodule StrawHat.Response do
       iex> StrawHat.Response.ok(42)
       {:ok, 42}
   """
+  @since "0.4.0"
   @spec ok(any) :: ok_tuple
   def ok(value), do: {:ok, value}
 
@@ -173,6 +185,7 @@ defmodule StrawHat.Response do
       iex> 2 |> StrawHat.Response.error() |>StrawHat.Response.ok?()
       false
   """
+  @since "0.4.0"
   @spec ok?(result_tuple) :: boolean
   def ok?({:ok, _}), do: true
   def ok?({:error, _}), do: false
@@ -191,6 +204,7 @@ defmodule StrawHat.Response do
       ...> {:error, "oops"} |> StrawHat.Response.tap(some_logging)
       {:error, "oops"}
   """
+  @since "0.4.0"
   @spec tap(result_tuple, (any -> any)) :: result_tuple
   def tap(data, function), do: map(data, &StrawHat.tap(&1, function))
 
@@ -208,6 +222,7 @@ defmodule StrawHat.Response do
     ...> {:ok, 42} |> StrawHat.Response.tap_error(some_logging)
     {:ok, 42}
   """
+  @since "0.4.0"
   @spec tap_error(result_tuple, (any -> any)) :: result_tuple
   def tap_error(data, function), do: map_error(data, &StrawHat.tap(&1, function))
 
@@ -229,6 +244,7 @@ defmodule StrawHat.Response do
       ...> {:error, "oops"} |> StrawHat.Response.or_else(default_value)
       {:ok, []}
   """
+  @since "0.4.0"
   @spec or_else(result_tuple, (any -> result_tuple)) :: result_tuple
   def or_else({:ok, _} = data, _function), do: data
   def or_else({:error, reason}, function), do: function.(reason)
@@ -250,6 +266,7 @@ defmodule StrawHat.Response do
       ...> StrawHat.Response.reject_if(res, &Enum.empty?/1, "list cannot be empty")
       {:error, "list cannot be empty"}
   """
+  @since "0.4.0"
   @spec reject_if(result_tuple, (any -> boolean), any) :: result_tuple
   def reject_if(result, predicate, error_message \\ :invalid) do
     keep_if(result, &(not predicate.(&1)), error_message)
@@ -267,11 +284,12 @@ defmodule StrawHat.Response do
       iex> StrawHat.Response.sequence([StrawHat.Response.ok(42), StrawHat.Response.error("oops"), StrawHat.Response.ok(1337)])
       {:error, "oops"}
   """
-  @spec sequence([result_tuple]) :: ({:ok, [any()]}|{:error, any()})
+  @since "0.4.0"
+  @spec sequence([result_tuple]) :: {:ok, [any()]} | {:error, any()}
   def sequence(list) do
     case Enum.reduce_while(list, [], &do_sequence/2) do
       {:error, _} = error -> error
-      result -> ok(Enum.reverse result)
+      result -> ok(Enum.reverse(result))
     end
   end
 
@@ -287,10 +305,13 @@ defmodule StrawHat.Response do
       iex> "oops" |> StrawHat.Response.error |> StrawHat.Response.with_default(1337)
       1337
   """
+  @since "0.4.0"
   @spec with_default(result_tuple, any) :: any
   def with_default({:ok, data}, _default_data), do: data
   def with_default({:error, _}, default_data), do: default_data
 
+  @since "0.4.0"
+  @spec do_sequence(result_tuple, [any()]) :: any()
   defp do_sequence(element, elements) do
     case element do
       {:ok, value} -> {:cont, [value | elements]}

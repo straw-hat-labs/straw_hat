@@ -15,6 +15,7 @@ defmodule StrawHat.Error.ErrorList do
   @doc """
   Creates a `t:StrawHat.Error.ErrorList.t/0`
   """
+  @since "0.4.0"
   @spec new([StrawHat.Error.t()]) :: t
   def new(errors), do: %__MODULE__{errors: errors}
 end

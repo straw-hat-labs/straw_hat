@@ -16,6 +16,7 @@ defmodule StrawHat do
       "1"
 
   """
+  @since "0.4.0"
   @spec pipe(any, (any -> any)) :: any
   def pipe(subject, function), do: function.(subject)
 
@@ -33,6 +34,8 @@ defmodule StrawHat do
       2
 
   """
+  @since "0.4.0"
+  @spec tap(any, (any -> any)) :: any
   def tap(subject, function) do
     function.(subject)
     subject

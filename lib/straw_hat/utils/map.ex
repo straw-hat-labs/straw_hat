@@ -8,6 +8,7 @@ defmodule StrawHat.Utils.Map do
 
     defexception [:key]
 
+    @since "0.4.0"
     @spec message(%{key: String.t()}) :: String.t()
     def message(%{key: key}) do
       "\"#{key}\" binary hasn't been used on the system as an atom before"
@@ -39,8 +40,8 @@ defmodule StrawHat.Utils.Map do
       %{a: "A", b: %{c: "C"}}
 
   """
+  @since "0.4.0"
   @spec deep_map(Map.t(), function :: function()) :: Map.t()
-
   # Don't deep map structs since they have atom keys anyway and they
   # also don't support enumerable
   def deep_map(%{__struct__: _any} = map, _function) do
@@ -90,6 +91,7 @@ defmodule StrawHat.Utils.Map do
   * The `map` transformed by the recursive application of `key_function`
     and `value_function`
   """
+  @since "0.4.0"
   @spec deep_map(Map.t(), key_function :: function(), value_function :: function()) :: Map.t()
   def deep_map(map, key_function, value_function)
 
@@ -133,6 +135,8 @@ defmodule StrawHat.Utils.Map do
       only convert the binary key to an atom if the atom
       already exists.  The default is `false`.
   """
+  @since "0.4.0"
+  @spec atomize_keys(map(), keyword()) :: map()
   def atomize_keys(map, options \\ [only_existing: true]) do
     deep_map(map, &atomize_element(&1, options[:only_existing]), &identity/1)
   end
@@ -149,6 +153,8 @@ defmodule StrawHat.Utils.Map do
       only convert the binary value to an atom if the atom
       already exists.  The default is `false`.
   """
+  @since "0.4.0"
+  @spec atomize_values(map(), keyword()) :: map()
   def atomize_values(map, options \\ [only_existing: false]) do
     deep_map(map, &identity/1, &atomize_element(&1, options[:only_existing]))
   end
@@ -158,6 +164,8 @@ defmodule StrawHat.Utils.Map do
 
   * `map` is any `Map.t`
   """
+  @since "0.4.0"
+  @spec stringify_keys(map()) :: map()
   def stringify_keys(map) do
     deep_map(
       map,
@@ -169,8 +177,12 @@ defmodule StrawHat.Utils.Map do
     )
   end
 
+  @since "0.4.0"
+  @spec identity(any) :: any
   defp identity(x), do: x
 
+  @since "0.4.0"
+  @spec atomize_element(String.t(), boolean) :: atom | no_return
   defp atomize_element(x, true) when is_binary(x) do
     try do
       String.to_existing_atom(x)

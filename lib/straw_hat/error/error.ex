@@ -9,7 +9,7 @@ defmodule StrawHat.Error do
   record but it does not exists on the database.
 
   ## Examples
-  
+
       case Repo.get(UserSchema, id) do
         nil -> {:error, StrawHat.Error.new("user.not_found", metadata: [user_id: id])}
         user -> {:ok, user}
