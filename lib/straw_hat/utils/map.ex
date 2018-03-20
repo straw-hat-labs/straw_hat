@@ -47,7 +47,8 @@ defmodule StrawHat.Utils.Map do
   end
 
   def deep_map(map, function) when is_map(map) do
-    Enum.map(map, fn
+    map
+    |> Enum.map(fn
       {k, v} when is_map(v) or is_list(v) ->
         {k, deep_map(v, function)}
 
@@ -99,7 +100,8 @@ defmodule StrawHat.Utils.Map do
   end
 
   def deep_map(map, key_function, value_function) when is_map(map) do
-    Enum.map(map, fn
+    map
+    |> Enum.map(fn
       {k, v} when is_map(v) or is_list(v) ->
         {key_function.(k), deep_map(v, key_function, value_function)}
 
@@ -175,10 +177,11 @@ defmodule StrawHat.Utils.Map do
   defp identity(x), do: x
 
   defp atomize_element(x, true) when is_binary(x) do
-    String.to_existing_atom(x)
-  rescue
-    ArgumentError ->
-      raise AtomizeKeyError, key: x
+    try do
+      String.to_existing_atom(x)
+    rescue
+      ArgumentError -> raise AtomizeKeyError, key: x
+    end
   end
 
   defp atomize_element(x, false) when is_binary(x), do: String.to_atom(x)
