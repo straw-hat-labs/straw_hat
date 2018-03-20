@@ -1,7 +1,7 @@
 # StrawHat
 
 [![Build Status](https://travis-ci.org/straw-hat-team/straw_hat.svg?branch=master)](https://travis-ci.org/straw-hat-team/straw_hat)
-[![Coverage Status](https://coveralls.io/repos/github/straw-hat-team/straw_hat/badge.svg?branch=master)](https://coveralls.io/github/straw-hat-team/straw_hat?branch=master)
+[![codecov](https://codecov.io/gh/straw-hat-team/straw_hat/branch/master/graph/badge.svg)](https://codecov.io/gh/straw-hat-team/straw_hat)
 [![Inline docs](http://inch-ci.org/github/straw-hat-team/straw_hat.svg)](http://inch-ci.org/github/straw-hat-team/straw_hat)
 
 Utility package, it's just the representation of **Conway's Law**. There
