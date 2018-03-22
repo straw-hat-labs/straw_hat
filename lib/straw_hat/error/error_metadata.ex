@@ -31,7 +31,7 @@ defmodule StrawHat.Error.ErrorMetadata do
   end
 
   @doc """
-  Serialize a Keyword list into a list of `t:StrawHat.Error.ErrorMetadata.t/0`.
+  Serializes a Keyword list into a list of `t:StrawHat.Error.ErrorMetadata.t/0`.
   """
   @since "0.4.0"
   @spec serialize(Keyword.t()) :: [t]
