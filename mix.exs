@@ -2,7 +2,7 @@ defmodule StrawHat.Mixfile do
   use Mix.Project
 
   @name :straw_hat
-  @version "0.4.0"
+  @version "0.4.1"
   @elixir_version "~> 1.5"
 
   @description """
