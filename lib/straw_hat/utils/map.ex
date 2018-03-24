@@ -196,7 +196,7 @@ defmodule StrawHat.Utils.Map do
       String.to_existing_atom(x)
     rescue
       ArgumentError ->
-        reraise AtomizeKeyError, [key: x], System.stacktrace
+        reraise AtomizeKeyError, [key: x], System.stacktrace()
     end
   end
 
