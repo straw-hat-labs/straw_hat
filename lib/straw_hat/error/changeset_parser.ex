@@ -4,6 +4,7 @@ if Code.ensure_loaded?(Ecto) do
     Ecto.Changeset parser that transforms the Ecto.Changeset errors into
     `%StrawHat.Error{}`.
     """
+
     alias Ecto.Changeset
     alias StrawHat.Error
 

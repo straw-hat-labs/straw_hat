@@ -1,7 +1,8 @@
-defmodule StrawHat.ErrorTest do
+defmodule StrawHat.EctoChangesetTest do
   use ExUnit.Case
   import Ecto.Changeset
-  doctest StrawHat.Error
+
+  alias StrawHat.Ecto.Changeset, as: StrawHatChangeset
 
   @types %{
     title: :string,
@@ -28,23 +29,15 @@ defmodule StrawHat.ErrorTest do
     |> validate_length(:title, is: 9)
   end
 
-  test "new/2 creates an error" do
-    assert %StrawHat.Error{code: "something"} = StrawHat.Error.new("something")
-  end
-
-  test "new/1 gets the list of errors from an Ecto.Changeset" do
+  test "transform_to_map/1 transforms the Ecto.Changeset into a map" do
     error_list =
       @params
       |> get_changeset()
-      |> StrawHat.Error.new()
+      |> Ecto.Changeset.add_error(:title, "random", additional: "info")
 
-    error_list_codes = Enum.map(error_list, fn error -> error.code end)
-
-    assert %StrawHat.Error.ErrorList{} = error_list
-
-    assert error_list_codes == [
-             "ecto.changeset.validation.confirmation",
-             "ecto.changeset.validation.length"
-           ]
+    assert %{
+             password_confirmation: ["does not match confirmation"],
+             title: ["random", "should be 9 character(s)"]
+           } = StrawHatChangeset.transform_to_map(error_list)
   end
 end

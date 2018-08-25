@@ -50,15 +50,13 @@ defmodule StrawHat.Utils.Map do
 
   @since "0.4.0"
   def deep_map(map, function) when is_map(map) do
-    map
-    |> Enum.map(fn
+    Enum.into(map, %{}, fn
       {k, v} when is_map(v) or is_list(v) ->
         {k, deep_map(v, function)}
 
       {k, v} ->
         function.({k, v})
     end)
-    |> Enum.into(%{})
   end
 
   @since "0.4.0"
@@ -105,15 +103,13 @@ defmodule StrawHat.Utils.Map do
 
   @since "0.4.0"
   def deep_map(map, key_function, value_function) when is_map(map) do
-    map
-    |> Enum.map(fn
+    Enum.into(map, %{}, fn
       {k, v} when is_map(v) or is_list(v) ->
         {key_function.(k), deep_map(v, key_function, value_function)}
 
       {k, v} ->
         {key_function.(k), value_function.(v)}
     end)
-    |> Enum.into(%{})
   end
 
   @since "0.4.0"
