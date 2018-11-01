@@ -37,7 +37,7 @@ defmodule StrawHat.Mixfile do
   defp deps do
     [
       {:uuid, "~> 1.1"},
-      {:ecto, "~> 2.2", optional: true},
+      {:ecto, "~> 3.0", optional: true},
 
       # Tools
       {:dialyxir, ">= 0.0.0", only: [:dev], runtime: false},
