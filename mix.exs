@@ -3,7 +3,7 @@ defmodule StrawHat.MixProject do
 
   @name :straw_hat
   @version "0.4.3"
-  @elixir_version "~> 1.5"
+  @elixir_version "~> 1.7"
 
   @description """
   StrawHat Utilities.
@@ -38,7 +38,7 @@ defmodule StrawHat.MixProject do
   defp deps do
     [
       {:uuid, "~> 1.1"},
-      {:ecto, "~> 3.0", optional: true},
+      {:ecto, ">= 0.0.0", optional: true},
 
       # Tools
       {:dialyxir, ">= 0.0.0", only: [:dev], runtime: false},
