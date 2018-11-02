@@ -1,4 +1,4 @@
-defmodule StrawHat.Mixfile do
+defmodule StrawHat.MixProject do
   use Mix.Project
 
   @name :straw_hat
@@ -21,7 +21,8 @@ defmodule StrawHat.Mixfile do
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
-        "coveralls.html": :test
+        "coveralls.html": :test,
+        "coveralls.json": :test
       ],
 
       # Extras

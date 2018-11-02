@@ -7,7 +7,7 @@ otp_release:
   - 20.2
 
 script:
-  - make testing
+  - make ci
 after_script:
   - make docs
 after_success:
