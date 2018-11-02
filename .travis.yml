@@ -8,8 +8,6 @@ otp_release:
 
 script:
   - make ci
-after_script:
-  - make docs
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 

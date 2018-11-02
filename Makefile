@@ -13,4 +13,4 @@ testing: deps
 docs:
 	mix inch.report
 
-ci: deps linter testing
+ci: deps linter testing docs
