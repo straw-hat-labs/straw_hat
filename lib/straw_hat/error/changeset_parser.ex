@@ -33,7 +33,12 @@ if Code.ensure_loaded?(Ecto) do
     defp tidy_opts(opts), do: Keyword.drop(opts, [:validation, :constraint])
 
     defp get_code({message, opts}) do
-      "ecto.changeset." <> code_suffix(opts)
+      code =
+        opts
+        |> Enum.into(%{})
+        |> code_suffix()
+
+      "ecto.changeset." <> code
     end
 
     defp code_suffix(%{validation: :number, kind: kind}) do
