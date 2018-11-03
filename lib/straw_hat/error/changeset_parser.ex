@@ -43,7 +43,7 @@ if Code.ensure_loaded?(Ecto) do
 
     # @TODO: all this is wrong, waiting for PR to be merged
     defp do_get_code(%{validation: :number, message: message}) do
-      cond do
+      case do
         # Ecto.Changeset.validate_number/3 when the :less_than_or_equal_to option
         # fails validation
         String.contains?(message, "less than or equal to") ->
