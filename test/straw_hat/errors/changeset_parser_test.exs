@@ -2,29 +2,29 @@ defmodule StrawHat.ErrorChangePaserTest do
   use ExUnit.Case
   import Ecto.Changeset
   alias StrawHat.Error.ChangesetParser
+  alias Ecto.TestRepo
 
   defmodule Post do
     use Ecto.Schema
 
     schema "posts" do
-      field :token, :integer, primary_key: true
-      field :title, :string, default: ""
-      field :body
-      field :uuid, :binary_id
-      field :color, :binary
-      field :decimal, :decimal
-      field :upvotes, :integer, default: 0
-      field :topics, {:array, :string}
-      field :virtual, :string, virtual: true
-      field :published_at, :naive_datetime
-      field :source, :map
-      field :permalink, :string, source: :url
-      belongs_to :category, Ecto.ChangesetTest.Category, source: :cat_id
-      has_many :comments, Ecto.ChangesetTest.Comment, on_replace: :delete
-      has_one :comment, Ecto.ChangesetTest.Comment
+      field(:token, :integer, primary_key: true)
+      field(:title, :string, default: "")
+      field(:body)
+      field(:uuid, :binary_id)
+      field(:color, :binary)
+      field(:decimal, :decimal)
+      field(:upvotes, :integer, default: 0)
+      field(:topics, {:array, :string})
+      field(:virtual, :string, virtual: true)
+      field(:published_at, :naive_datetime)
+      field(:source, :map)
+      field(:permalink, :string, source: :url)
+      belongs_to(:category, Ecto.ChangesetTest.Category, source: :cat_id)
+      has_many(:comments, Ecto.ChangesetTest.Comment, on_replace: :delete)
+      has_one(:comment, Ecto.ChangesetTest.Comment)
     end
   end
-
 
   defp changeset(schema \\ %Post{}, params) do
     cast(schema, params, ~w(id token title body upvotes decimal color topics virtual)a)
