@@ -129,5 +129,12 @@ defmodule StrawHat.ErrorChangePaserTest do
 
       assert error.code == "ecto.changeset.validation.acceptance"
     end
+
+    test "with check_constraint/3"
+    test "with unique_constraint/3"
+    test "with foreign_key_constraint/3"
+    test "with assoc_constraint/3"
+    test "with no_assoc_constraint/3"
+    test "with exclusion_constraint/3"
   end
 end
