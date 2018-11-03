@@ -2,7 +2,7 @@ if Code.ensure_loaded?(Ecto) do
   defmodule StrawHat.Error.ChangesetParser do
     @moduledoc """
     Ecto.Changeset parser that transforms the Ecto.Changeset errors into
-    `%StrawHat.Error{}`.
+    list of `%StrawHat.Error{}`.
     """
 
     alias Ecto.Changeset
@@ -33,78 +33,34 @@ if Code.ensure_loaded?(Ecto) do
     defp tidy_opts(opts), do: Keyword.drop(opts, [:validation, :constraint])
 
     defp get_code({message, opts}) do
-      code =
-        opts
-        |> Enum.into(%{message: message})
-        |> do_get_code()
-
-      "ecto.changeset." <> code
+      "ecto.changeset." <> code_suffix(opts)
     end
 
-    # @TODO: all this is wrong, waiting for PR to be merged
-    defp do_get_code(%{validation: :number, message: message}) do
-      case do
-        # Ecto.Changeset.validate_number/3 when the :less_than_or_equal_to option
-        # fails validation
-        String.contains?(message, "less than or equal to") ->
-          "validation.number.less_than_or_equal_to"
-
-        # Ecto.Changeset.validate_number/3 when the :greater_than_or_equal_to
-        # option fails validation
-        String.contains?(message, "greater than or equal to") ->
-          "validation.number.greater_than_or_equal_to"
-
-        # Ecto.Changeset.validate_number/3 when the :less_than option
-        # fails validation
-        String.contains?(message, "less than") ->
-          "validation.number.less_than"
-
-        # Ecto.Changeset.validate_number/3 when the :greater_than option
-        # fails validation
-        String.contains?(message, "greater than") ->
-          "validation.number.greater_than"
-
-        # Ecto.Changeset.validate_number/3 when the :equal_to option
-        # fails validation
-        String.contains?(message, "equal to") ->
-          "validation.number.equal_to"
-
-        true ->
-          :unknown
-      end
+    defp code_suffix(%{validation: :number, kind: kind}) do
+      validation_error_preffix("number." <> to_string(kind))
     end
 
-    # @TODO: this is wrong, waiting for PR to be merged
-    # - Ecto.Changeset.assoc_constraint/3
-    # - Ecto.Changeset.cast_assoc/3
-    # - Ecto.Changeset.put_assoc/3
-    # - Ecto.Changeset.cast_embed/3
-    # - Ecto.Changeset.put_embed/3
-    defp do_get_code(%{message: "is invalid", type: _}), do: get_constraint_code("assoc")
+    defp code_suffix(%{validation: validation_name}) do
+      validation_error_preffix(validation_name)
+    end
 
-    # Ecto.Changeset.unique_constraint/3
-    defp do_get_code(%{message: "has already been taken"}), do: get_constraint_code("unique")
-
-    # Ecto.Changeset.foreign_key_constraint/3
-    defp do_get_code(%{message: "does not exist"}), do: get_constraint_code("foreign")
-
-    # Ecto.Changeset.no_assoc_constraint/3
-    defp do_get_code(%{message: "is still associated with this entry"}),
-      do: get_constraint_code("no_assoc")
-
-    defp do_get_code(%{validation: validation_name}), do: get_validation_code(validation_name)
-
-    defp do_get_code(%{constraint: constraint_name}), do: get_constraint_code(constraint_name)
+    defp code_suffix(%{constraint: constraint_name}) do
+      constraint_error_preffix(constraint_name)
+    end
 
     # Supplied when validation cannot be matched. This will also match
     # any custom errors added through
     # - Ecto.Changeset.add_error/4
     # - Ecto.Changeset.validate_change/3
     # - Ecto.Changeset.validate_change/4
-    defp do_get_code(_unknown), do: "unknown"
+    defp code_suffix(_unknown), do: "unknown"
 
-    defp get_validation_code(validation_name), do: "validation." <> to_string(validation_name)
+    defp validation_error_preffix(validation_name) do
+      "validation." <> to_string(validation_name)
+    end
 
-    defp get_constraint_code(constraint_name), do: "constraint." <> to_string(constraint_name)
+    defp constraint_error_preffix(constraint_name) do
+      "constraint." <> to_string(constraint_name)
+    end
   end
 end
