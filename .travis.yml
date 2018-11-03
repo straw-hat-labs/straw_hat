@@ -2,14 +2,12 @@ language: elixir
 sudo: false
 
 elixir:
-  - 1.6.4
+  - 1.7
 otp_release:
-  - 20.2
+  - 21.1
 
 script:
-  - make testing
-after_script:
-  - make docs
+  - make ci
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 

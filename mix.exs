@@ -1,9 +1,9 @@
-defmodule StrawHat.Mixfile do
+defmodule StrawHat.MixProject do
   use Mix.Project
 
   @name :straw_hat
-  @version "0.4.2"
-  @elixir_version "~> 1.5"
+  @version "0.4.3"
+  @elixir_version "~> 1.7"
 
   @description """
   StrawHat Utilities.
@@ -21,7 +21,8 @@ defmodule StrawHat.Mixfile do
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
-        "coveralls.html": :test
+        "coveralls.html": :test,
+        "coveralls.json": :test
       ],
 
       # Extras
@@ -37,7 +38,7 @@ defmodule StrawHat.Mixfile do
   defp deps do
     [
       {:uuid, "~> 1.1"},
-      {:ecto, "~> 2.2", optional: true},
+      {:ecto, ">= 0.0.0", optional: true},
 
       # Tools
       {:dialyxir, ">= 0.0.0", only: [:dev], runtime: false},
