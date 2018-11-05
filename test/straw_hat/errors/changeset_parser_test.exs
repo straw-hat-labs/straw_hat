@@ -43,7 +43,10 @@ defmodule StrawHat.ErrorChangePaserTest do
       error =
         %{}
         |> changeset()
-        |> Changeset.add_error(:title, "empty", [constraint: :unique, constraint_name: "custom_foo_index"])
+        |> Changeset.add_error(:title, "empty",
+          constraint: :unique,
+          constraint_name: "custom_foo_index"
+        )
         |> ChangesetParser.parse()
         |> List.first()
 
