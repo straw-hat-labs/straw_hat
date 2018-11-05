@@ -1,5 +1,5 @@
 defmodule StrawHat.ErrorTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Ecto.Changeset
   doctest StrawHat.Error
 

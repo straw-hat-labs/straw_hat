@@ -1,5 +1,5 @@
 defmodule StrawHatTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import ExUnit.CaptureIO
   doctest StrawHat
 

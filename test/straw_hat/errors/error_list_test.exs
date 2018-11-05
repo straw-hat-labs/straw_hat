@@ -1,5 +1,5 @@
 defmodule StrawHat.ErrorListTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest StrawHat.Error.ErrorList
 
   describe "Enumerable protocol" do

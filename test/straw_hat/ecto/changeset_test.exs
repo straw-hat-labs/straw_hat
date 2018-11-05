@@ -1,5 +1,5 @@
 defmodule StrawHat.EctoChangesetTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Ecto.Changeset
 
   alias StrawHat.Ecto.Changeset, as: StrawHatChangeset

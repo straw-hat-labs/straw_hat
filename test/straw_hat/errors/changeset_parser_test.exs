@@ -1,8 +1,7 @@
 defmodule StrawHat.ErrorChangePaserTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   import Ecto.Changeset
   alias StrawHat.Error.ChangesetParser
-  alias Ecto.TestRepo
 
   defmodule Post do
     use Ecto.Schema
