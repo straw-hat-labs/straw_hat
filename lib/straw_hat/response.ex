@@ -28,6 +28,7 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec and_then(result_tuple, (any -> result_tuple)) :: result_tuple
   def and_then({:ok, data}, function), do: function.(data)
+
   @since "0.4.0"
   def and_then({:error, _} = error, _function), do: error
 
@@ -50,6 +51,7 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec either(result_tuple, (any -> any), (any -> any)) :: any
   def either({:ok, data}, _, on_ok), do: on_ok.(data)
+
   @since "0.4.0"
   def either({:error, error}, on_error, _), do: on_error.(error)
 
@@ -79,6 +81,7 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec error?(result_tuple) :: boolean
   def error?({:error, _}), do: true
+
   @since "0.4.0"
   def error?({:ok, _}), do: false
 
@@ -97,8 +100,10 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec from_value(any) :: result_tuple
   def from_value(value, on_nil_value \\ :no_value)
+
   @since "0.4.0"
   def from_value(nil, on_nil_value), do: error(on_nil_value)
+
   @since "0.4.0"
   def from_value(value, _on_nil_value), do: ok(value)
 
@@ -122,8 +127,10 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec keep_if(result_tuple, (any -> boolean), any) :: result_tuple
   def keep_if(result, predicate, error_message \\ :invalid)
+
   @since "0.4.0"
   def keep_if({:error, _} = error, _predicate, _error_message), do: error
+
   @since "0.4.0"
   def keep_if({:ok, value} = ok, predicate, error_message) do
     if predicate.(value), do: ok, else: error(error_message)
@@ -146,6 +153,7 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec map(result_tuple, (any -> any)) :: result_tuple
   def map({:ok, data}, function), do: ok(function.(data))
+
   @since "0.4.0"
   def map({:error, _} = error, _function), do: error
 
@@ -166,6 +174,7 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec map_error(result_tuple, (any -> any)) :: result_tuple
   def map_error({:ok, _} = data, _function), do: data
+
   @since "0.4.0"
   def map_error({:error, _} = error, function) do
     or_else(error, fn x -> error(function.(x)) end)
@@ -197,6 +206,7 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec ok?(result_tuple) :: boolean
   def ok?({:ok, _}), do: true
+
   @since "0.4.0"
   def ok?({:error, _}), do: false
 
@@ -257,6 +267,7 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec or_else(result_tuple, (any -> result_tuple)) :: result_tuple
   def or_else({:ok, _} = data, _function), do: data
+
   @since "0.4.0"
   def or_else({:error, reason}, function), do: function.(reason)
 
@@ -319,6 +330,7 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   @spec with_default(result_tuple, any) :: any
   def with_default({:ok, data}, _default_data), do: data
+
   @since "0.4.0"
   def with_default({:error, _}, default_data), do: default_data
 
