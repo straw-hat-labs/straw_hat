@@ -86,20 +86,36 @@ defmodule StrawHat.Response do
   def error?({:ok, _}), do: false
 
   @doc ~S"""
-  Promotes any value to a result tuple. It excludes `nil` for the
-  ok tuples.
+  Promotes any value to a result tuple.
+
+  It excludes `nil` for the ok tuples.
 
   ## Examples
 
       iex> StrawHat.Response.from_value(nil)
       {:error, :no_value}
 
+      iex> StrawHat.Response.from_value(nil, "Missing")
+      {:error, "Missing"}
+
       iex> StrawHat.Response.from_value(42)
       {:ok, 42}
+
+      iex> StrawHat.Response.from_value({:ok, 123})
+      {:ok, 123}
+
+      iex> StrawHat.Response.from_value({:error, "my error"})
+      {:error, "my error"}
   """
   @since "0.4.0"
   @spec from_value(any) :: result_tuple
   def from_value(value, on_nil_value \\ :no_value)
+
+  @since "0.4.6"
+  def from_value({:ok, _value} = response, _on_nil_value), do: response
+
+  @since "0.4.6"
+  def from_value({:error, _value} = response, _on_nil_value), do: response
 
   @since "0.4.0"
   def from_value(nil, on_nil_value), do: error(on_nil_value)
