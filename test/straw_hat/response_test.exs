@@ -3,7 +3,7 @@ defmodule StrawHat.ResponseTest do
   import ExUnit.CaptureIO
   doctest StrawHat.Response
 
-  test "tap: calls the function and returns original data" do
+  test "tap/2 calls the function and returns original data" do
     original = StrawHat.Response.ok("World")
 
     assert "Hello World\n" ==
@@ -13,7 +13,7 @@ defmodule StrawHat.ResponseTest do
              end)
   end
 
-  test "tap: does not call the function and returns original data" do
+  test "tap/2 does not call the function and returns original data" do
     original = StrawHat.Response.error("Oops")
 
     assert "" ==
@@ -23,7 +23,7 @@ defmodule StrawHat.ResponseTest do
              end)
   end
 
-  test "tap_error: does not call the function and returns original data" do
+  test "tap_error/2 does not call the function and returns original data" do
     original = StrawHat.Response.ok("World")
 
     assert "" ==
@@ -35,7 +35,7 @@ defmodule StrawHat.ResponseTest do
              end)
   end
 
-  test "tap_error: does call the function and returns original data" do
+  test "tap_error/2 does call the function and returns original data" do
     original = StrawHat.Response.error("Oops")
 
     assert "Hello Oops\n" ==
