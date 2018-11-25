@@ -2,7 +2,7 @@ defmodule StrawHat.MixProject do
   use Mix.Project
 
   @name :straw_hat
-  @version "0.4.4"
+  @version "0.4.5"
   @elixir_version "~> 1.7"
   @source_url "https://github.com/straw-hat-team/straw_hat"
 

@@ -6,6 +6,7 @@ defmodule StrawHat.Response do
   * `{:error, reason}`
   """
 
+  @type t(ok, error) :: {:ok, ok} | {:error, error}
   @type ok_tuple :: {:ok, any}
   @type error_tuple :: {:error, any}
   @type result_tuple :: ok_tuple | error_tuple
