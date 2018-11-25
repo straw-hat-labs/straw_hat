@@ -31,7 +31,7 @@ defmodule StrawHat.Error do
           id: String.t(),
           code: String.t(),
           type: String.t(),
-          metadata: ErrorMetadata.t()
+          metadata: [ErrorMetadata.t()]
         }
 
   @enforce_keys [:id, :code]
