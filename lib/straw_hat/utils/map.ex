@@ -182,12 +182,8 @@ defmodule StrawHat.Utils.Map do
     )
   end
 
-  @since "0.4.0"
-  @spec identity(any) :: any
   defp identity(x), do: x
 
-  @since "0.4.0"
-  @spec atomize_element(String.t(), boolean) :: atom | no_return
   defp atomize_element(x, true) when is_binary(x) do
     try do
       String.to_existing_atom(x)
@@ -197,9 +193,7 @@ defmodule StrawHat.Utils.Map do
     end
   end
 
-  @since "0.4.0"
   defp atomize_element(x, false) when is_binary(x), do: String.to_atom(x)
 
-  @since "0.4.0"
   defp atomize_element(x, _), do: x
 end

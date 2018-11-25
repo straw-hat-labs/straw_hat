@@ -321,8 +321,6 @@ defmodule StrawHat.Response do
   @since "0.4.0"
   def with_default({:error, _}, default_data), do: default_data
 
-  @since "0.4.0"
-  @spec do_sequence(result_tuple, [any()]) :: any()
   defp do_sequence(element, elements) do
     case element do
       {:ok, value} -> {:cont, [value | elements]}
