@@ -4,16 +4,10 @@ defmodule StrawHat.MixProject do
   @name :straw_hat
   @version "0.4.3"
   @elixir_version "~> 1.7"
-
-  @description """
-  StrawHat Utilities.
-  """
   @source_url "https://github.com/straw-hat-team/straw_hat"
 
   def project do
     [
-      name: "StrawHat",
-      description: @description,
       app: @name,
       version: @version,
       elixir: @elixir_version,
@@ -25,8 +19,12 @@ defmodule StrawHat.MixProject do
         "coveralls.json": :test
       ],
 
-      # Extras
+      # Hex
+      description: "StrawHat Utilities",
       package: package(),
+
+      # Docs
+      name: "StrawHat",
       docs: docs()
     ]
   end
