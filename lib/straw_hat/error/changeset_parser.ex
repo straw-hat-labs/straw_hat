@@ -32,7 +32,7 @@ if Code.ensure_loaded?(Ecto) do
 
     defp tidy_opts(opts), do: Keyword.drop(opts, [:validation, :constraint])
 
-    defp get_code({message, opts}) do
+    defp get_code({_message, opts}) do
       code =
         opts
         |> Enum.into(%{})
