@@ -1,4 +1,4 @@
-defmodule StrawHat.ErrorListTest do
+defmodule StrawHat.ErrorListTests do
   use ExUnit.Case, async: true
   doctest StrawHat.Error.ErrorList
 

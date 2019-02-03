@@ -1,4 +1,4 @@
-defmodule StrawHat.ErrorMetadataTest do
+defmodule StrawHat.ErrorMetadataTests do
   use ExUnit.Case, async: true
   doctest StrawHat.Error.ErrorMetadata
 

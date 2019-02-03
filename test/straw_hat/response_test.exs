@@ -1,4 +1,4 @@
-defmodule StrawHat.ResponseTest do
+defmodule StrawHat.ResponseTests do
   use ExUnit.Case, async: true
   import ExUnit.CaptureIO
   doctest StrawHat.Response

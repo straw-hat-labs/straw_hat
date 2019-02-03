@@ -1,4 +1,4 @@
-defmodule StrawHat.EctoChangesetTest do
+defmodule StrawHat.EctoChangesetTests do
   use ExUnit.Case, async: true
   import Ecto.Changeset
 
