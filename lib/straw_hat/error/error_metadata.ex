@@ -17,14 +17,12 @@ defmodule StrawHat.Error.ErrorMetadata do
   @doc """
   Creates a `t:StrawHat.Error.ErrorMetadata.t/0` from a tuple.
   """
-  @since "0.4.0"
   @spec new({String.t() | atom, any}) :: t
   def new({key, value} = _value_tuple), do: new(key, value)
 
   @doc """
   Creates a `t:StrawHat.Error.ErrorMetadata.t/0`.
   """
-  @since "0.4.0"
   @spec new(atom | String.t(), any) :: t
   def new(key, value) do
     %__MODULE__{key: to_string(key), value: to_string(value)}
@@ -33,7 +31,6 @@ defmodule StrawHat.Error.ErrorMetadata do
   @doc """
   Serializes a Keyword list into a list of `t:StrawHat.Error.ErrorMetadata.t/0`.
   """
-  @since "0.4.0"
   @spec serialize(Keyword.t()) :: [t]
   def serialize(metadata), do: Enum.map(metadata, fn {key, value} -> new(key, value) end)
 end

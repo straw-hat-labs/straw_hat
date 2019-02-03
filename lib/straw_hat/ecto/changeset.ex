@@ -7,7 +7,6 @@ if Code.ensure_loaded?(Ecto) do
     @doc """
     A helper that transform changeset errors to a map of messages.
     """
-    @since "0.4.2"
     @spec transform_to_map(Ecto.Changeset.t()) :: map()
     def transform_to_map(%Ecto.Changeset{} = changeset) do
       Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->

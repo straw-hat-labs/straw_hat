@@ -11,7 +11,6 @@ if Code.ensure_loaded?(Ecto) do
     @doc """
     Parse an `%Ecto.Changeset{}` errors into a list of `%StrawHat.Error{}`.
     """
-    @since "0.4.3"
     @spec parse(Ecto.Changeset.t()) :: [StrawHat.Error.t()]
     def parse(changeset) do
       changeset

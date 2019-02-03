@@ -8,7 +8,6 @@ defmodule StrawHat.Utils.Map do
 
     defexception [:key]
 
-    @since "0.4.0"
     @spec message(%{key: String.t()}) :: String.t()
     def message(%{key: key}) do
       "\"#{key}\" binary hasn't been used on the system as an atom before"
@@ -19,18 +18,6 @@ defmodule StrawHat.Utils.Map do
   Recursively traverse a map and invoke a function for each key/
   value pair that transforms the map.
 
-  ## Arguments
-
-  * `map` is any `Map.t`
-
-  * `function` is a function or function reference that
-    is called for each key/value pair of the provided map
-
-  ## Returns
-
-  * The `map` transformed by the recursive application of
-    `function`
-
   ## Examples
 
       iex> map = %{a: "a", b: %{c: "c"}}
@@ -40,7 +27,6 @@ defmodule StrawHat.Utils.Map do
       %{a: "A", b: %{c: "C"}}
 
   """
-  @since "0.4.0"
   @spec deep_map(Map.t(), function :: function()) :: Map.t()
   # Don't deep map structs since they have atom keys anyway and they
   # also don't support enumerable
@@ -48,7 +34,6 @@ defmodule StrawHat.Utils.Map do
     map
   end
 
-  @since "0.4.0"
   def deep_map(map, function) when is_map(map) do
     Enum.into(map, %{}, fn
       {k, v} when is_map(v) or is_list(v) ->
@@ -59,17 +44,14 @@ defmodule StrawHat.Utils.Map do
     end)
   end
 
-  @since "0.4.0"
   def deep_map([head | rest], fun) do
     [deep_map(head, fun) | deep_map(rest, fun)]
   end
 
-  @since "0.4.0"
   def deep_map(nil, _fun) do
     nil
   end
 
-  @since "0.4.0"
   def deep_map(value, fun) do
     fun.(value)
   end
@@ -78,8 +60,6 @@ defmodule StrawHat.Utils.Map do
   Recursively traverse a map and invoke a function for each key
   and a function for each value that transform the map.
 
-  * `map` is any `Map.t`
-
   * `key_function` is a function or function reference that
     is called for each key of the provided map and any keys
     of any submaps
@@ -87,22 +67,14 @@ defmodule StrawHat.Utils.Map do
   * `value_function` is a function or function reference that
     is called for each value of the provided map and any values
     of any submaps
-
-  Returns:
-
-  * The `map` transformed by the recursive application of `key_function`
-    and `value_function`
   """
-  @since "0.4.0"
   @spec deep_map(Map.t(), key_function :: function(), value_function :: function()) :: Map.t()
   def deep_map(map, key_function, value_function)
 
-  @since "0.4.0"
   def deep_map(%{__struct__: _any} = map, _key_function, _value_function) do
     map
   end
 
-  @since "0.4.0"
   def deep_map(map, key_function, value_function) when is_map(map) do
     Enum.into(map, %{}, fn
       {k, v} when is_map(v) or is_list(v) ->
@@ -113,25 +85,20 @@ defmodule StrawHat.Utils.Map do
     end)
   end
 
-  @since "0.4.0"
   def deep_map([head | rest], key_fun, value_fun) do
     [deep_map(head, key_fun, value_fun) | deep_map(rest, key_fun, value_fun)]
   end
 
-  @since "0.4.0"
   def deep_map(nil, _key_fun, _value_fun) do
     nil
   end
 
-  @since "0.4.0"
   def deep_map(value, _key_fun, value_fun) do
     value_fun.(value)
   end
 
   @doc """
   Transforms a `map`'s `String.t` keys to `atom()` keys.
-
-  * `map` is any `Map.t`
 
   * `options` is a keyword list of options.  The
     available option is:
@@ -140,7 +107,6 @@ defmodule StrawHat.Utils.Map do
       only convert the binary key to an atom if the atom
       already exists.  The default is `false`.
   """
-  @since "0.4.0"
   @spec atomize_keys(map(), keyword()) :: map()
   def atomize_keys(map, options \\ [only_existing: true]) do
     deep_map(map, &atomize_element(&1, options[:only_existing]), &identity/1)
@@ -149,8 +115,6 @@ defmodule StrawHat.Utils.Map do
   @doc """
   Transforms a `map`'s `String.t` values to `atom()` values.
 
-  * `map` is any `Map.t`
-
   * `options` is a keyword list of options.  The
     available option is:
 
@@ -158,7 +122,6 @@ defmodule StrawHat.Utils.Map do
       only convert the binary value to an atom if the atom
       already exists.  The default is `false`.
   """
-  @since "0.4.0"
   @spec atomize_values(map(), keyword()) :: map()
   def atomize_values(map, options \\ [only_existing: false]) do
     deep_map(map, &identity/1, &atomize_element(&1, options[:only_existing]))
@@ -166,10 +129,7 @@ defmodule StrawHat.Utils.Map do
 
   @doc """
   Transforms a `map`'s `atom()` keys to `String.t` keys.
-
-  * `map` is any `Map.t`
   """
-  @since "0.4.0"
   @spec stringify_keys(map()) :: map()
   def stringify_keys(map) do
     deep_map(
