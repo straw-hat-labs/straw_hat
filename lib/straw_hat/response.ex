@@ -210,11 +210,11 @@ defmodule StrawHat.Response do
 
   ## Examples
 
-      iex> some_logging = fn x -> IO.puts "Success #{x}" end
+      iex> some_logging = fn x -> "Success #{x}" end
       ...> {:ok, 42} |> StrawHat.Response.tap(some_logging)
       {:ok, 42}
 
-      iex> some_logging = fn _ -> IO.puts "Not called logging" end
+      iex> some_logging = fn _ -> "Not called logging" end
       ...> {:error, "oops"} |> StrawHat.Response.tap(some_logging)
       {:error, "oops"}
   """
@@ -227,11 +227,11 @@ defmodule StrawHat.Response do
 
   ## Examples
 
-    iex> some_logging = fn x -> IO.puts "Failed #{x}" end
+    iex> some_logging = fn x -> "Failed #{x}" end
     ...> {:error, "oops"} |> StrawHat.Response.tap_error(some_logging)
     {:error, "oops"}
 
-    iex> some_logging = fn _ -> IO.puts "Not called logging" end
+    iex> some_logging = fn _ -> "Not called logging" end
     ...> {:ok, 42} |> StrawHat.Response.tap_error(some_logging)
     {:ok, 42}
   """

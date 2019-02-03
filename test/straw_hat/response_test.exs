@@ -1,49 +1,37 @@
 defmodule StrawHat.ResponseTests do
   use ExUnit.Case, async: true
-  import ExUnit.CaptureIO
-  doctest StrawHat.Response
+  alias StrawHat.Response
 
-  test "tap/2 calls the function and returns original data" do
-    original = StrawHat.Response.ok("World")
+  doctest Response
 
-    assert "Hello World\n" ==
-             capture_io(fn ->
-               assert original ==
-                        StrawHat.Response.tap(original, fn name -> IO.puts("Hello #{name}") end)
-             end)
+  describe "tap/2" do
+    test "calls the function and returns original data" do
+      original = Response.ok("Hello, World")
+
+      assert original ==
+               Response.tap(original, fn text ->
+                 assert text == "Hello, World"
+               end)
+    end
+
+    test "does not call the function and returns original data" do
+      original = Response.error("Oops")
+
+      assert original == Response.tap(original, fn _message -> assert false end)
+    end
   end
 
-  test "tap/2 does not call the function and returns original data" do
-    original = StrawHat.Response.error("Oops")
+  describe "tap_error/2" do
+    test "does not call the function and returns original data" do
+      original = Response.ok("World")
 
-    assert "" ==
-             capture_io(fn ->
-               assert original ==
-                        StrawHat.Response.tap(original, fn name -> IO.puts("Hello #{name}") end)
-             end)
-  end
+      assert original == Response.tap_error(original, fn _message -> assert false end)
+    end
 
-  test "tap_error/2 does not call the function and returns original data" do
-    original = StrawHat.Response.ok("World")
+    test "does call the function and returns original data" do
+      original = Response.error("Oops")
 
-    assert "" ==
-             capture_io(fn ->
-               assert original ==
-                        StrawHat.Response.tap_error(original, fn name ->
-                          IO.puts("Hello #{name}")
-                        end)
-             end)
-  end
-
-  test "tap_error/2 does call the function and returns original data" do
-    original = StrawHat.Response.error("Oops")
-
-    assert "Hello Oops\n" ==
-             capture_io(fn ->
-               assert original ==
-                        StrawHat.Response.tap_error(original, fn name ->
-                          IO.puts("Hello #{name}")
-                        end)
-             end)
+      assert original == Response.tap_error(original, fn message -> assert message == "Oops" end)
+    end
   end
 end
