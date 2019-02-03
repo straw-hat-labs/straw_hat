@@ -7,24 +7,19 @@ defmodule StrawHat.MixProject do
   @source_url "https://github.com/straw-hat-team/straw_hat"
 
   def project do
+    production? = Mix.env() == :prod
+
     [
+      name: "StrawHat",
+      description: "StrawHat Utilities",
       app: @name,
       version: @version,
-      elixir: @elixir_version,
       deps: deps(),
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.html": :test,
-        "coveralls.json": :test
-      ],
-
-      # Hex
-      description: "StrawHat Utilities",
+      elixir: @elixir_version,
+      start_permanent: production?,
+      test_coverage: test_coverage(),
+      preferred_cli_env: cli_env(),
       package: package(),
-
-      # Docs
-      name: "StrawHat",
       docs: docs()
     ]
   end
@@ -42,8 +37,18 @@ defmodule StrawHat.MixProject do
       {:dialyxir, ">= 0.0.0", only: [:dev], runtime: false},
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:excoveralls, ">= 0.0.0", only: [:test], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false},
-      {:inch_ex, ">= 0.0.0", only: [:dev], runtime: false}
+      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false}
+    ]
+  end
+
+  defp test_coverage do
+    [tool: ExCoveralls]
+  end
+
+  defp cli_env do
+    [
+      "coveralls.html": :test,
+      "coveralls.json": :test
     ]
   end
 

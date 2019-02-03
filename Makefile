@@ -10,7 +10,4 @@ linter:
 testing: deps
 	mix coveralls.json
 
-docs:
-	mix inch.report
-
-ci: deps linter testing docs
+ci: deps linter testing
