@@ -17,6 +17,7 @@ defmodule StrawHat.MixProject do
       deps: deps(),
       elixir: @elixir_version,
       start_permanent: production?,
+      aliases: aliases(),
       test_coverage: test_coverage(),
       preferred_cli_env: cli_env(),
       package: package(),
@@ -49,6 +50,12 @@ defmodule StrawHat.MixProject do
     [
       "coveralls.html": :test,
       "coveralls.json": :test
+    ]
+  end
+
+  defp aliases do
+    [
+      test: ["test --trace"]
     ]
   end
 
