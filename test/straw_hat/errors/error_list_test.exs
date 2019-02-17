@@ -2,7 +2,7 @@ defmodule StrawHat.ErrorListTests do
   use ExUnit.Case, async: true
   doctest StrawHat.Error.ErrorList
 
-  describe "Enumerable protocol" do
+  describe "enumerable protocol" do
     test "count/1" do
       error_list = %StrawHat.Error.ErrorList{errors: [1, 2, 3]}
       assert Enum.count(error_list) == 3

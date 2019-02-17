@@ -28,11 +28,11 @@ defmodule StrawHat.ErrorTests do
     |> validate_length(:title, is: 9)
   end
 
-  test "new/2 creates an error" do
+  test "creating an error" do
     assert %StrawHat.Error{code: "something"} = StrawHat.Error.new("something")
   end
 
-  test "new/1 gets the list of errors from an Ecto.Changeset" do
+  test "getting the list of errors from an Ecto.Changeset" do
     error_list =
       @params
       |> get_changeset()

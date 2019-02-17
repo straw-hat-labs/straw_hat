@@ -29,7 +29,7 @@ defmodule StrawHat.EctoChangesetTests do
     |> validate_length(:title, is: 9)
   end
 
-  test "transform_to_map/1 transforms the Ecto.Changeset into a map" do
+  test "transforming a Ecto.Changeset into a Map" do
     error_list =
       @params
       |> get_changeset()

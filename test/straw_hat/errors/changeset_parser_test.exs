@@ -16,41 +16,20 @@ defmodule StrawHat.ErrorChangePaserTests do
     Changeset.cast(schema, params, ~w(id title upvotes)a)
   end
 
-  describe "parse/1" do
-    test "with validate_required/2" do
-      error =
-        %{}
-        |> changeset()
-        |> Changeset.validate_required(:title)
-        |> ChangesetParser.parse()
-        |> List.first()
+  test "parsing Ecto.Changeset errors" do
+    errors =
+      %{"upvotes" => -1}
+      |> changeset()
+      |> Changeset.validate_required(:title)
+      |> Changeset.validate_number(:upvotes, greater_than: 0)
+      |> Changeset.add_error(:title, "empty",
+        constraint: :unique,
+        constraint_name: "custom_foo_index"
+      )
+      |> ChangesetParser.parse()
 
-      assert error.code == "ecto.changeset.validation.required"
-    end
-
-    test "with validate_number/3" do
-      error =
-        %{"upvotes" => -1}
-        |> changeset()
-        |> Changeset.validate_number(:upvotes, greater_than: 0)
-        |> ChangesetParser.parse()
-        |> List.first()
-
-      assert error.code == "ecto.changeset.validation.number.greater_than"
-    end
-
-    test "with mocked unique constraint" do
-      error =
-        %{}
-        |> changeset()
-        |> Changeset.add_error(:title, "empty",
-          constraint: :unique,
-          constraint_name: "custom_foo_index"
-        )
-        |> ChangesetParser.parse()
-        |> List.first()
-
-      assert error.code == "ecto.changeset.constraint.unique"
-    end
+    assert Enum.at(errors, 0).code == "ecto.changeset.constraint.unique"
+    assert Enum.at(errors, 1).code == "ecto.changeset.validation.required"
+    assert Enum.at(errors, 2).code == "ecto.changeset.validation.number.greater_than"
   end
 end
