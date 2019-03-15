@@ -109,7 +109,7 @@ defmodule StrawHat.Utils.Map do
   """
   @spec atomize_keys(map(), keyword()) :: map()
   def atomize_keys(map, options \\ [only_existing: true]) do
-    deep_map(map, &atomize_element(&1, options[:only_existing]), &identity/1)
+    deep_map(map, &atomize_element(&1, options[:only_existing]), &StrawHat.identity/1)
   end
 
   @doc """
@@ -124,7 +124,7 @@ defmodule StrawHat.Utils.Map do
   """
   @spec atomize_values(map(), keyword()) :: map()
   def atomize_values(map, options \\ [only_existing: false]) do
-    deep_map(map, &identity/1, &atomize_element(&1, options[:only_existing]))
+    deep_map(map, &StrawHat.identity/1, &atomize_element(&1, options[:only_existing]))
   end
 
   @doc """
@@ -138,11 +138,9 @@ defmodule StrawHat.Utils.Map do
         k when is_atom(k) -> Atom.to_string(k)
         k -> k
       end,
-      &identity/1
+      &StrawHat.identity/1
     )
   end
-
-  defp identity(x), do: x
 
   defp atomize_element(x, true) when is_binary(x) do
     try do

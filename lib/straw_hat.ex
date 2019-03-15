@@ -38,4 +38,14 @@ defmodule StrawHat do
     function.(subject)
     subject
   end
+
+  @doc """
+  A returns the parameter back.
+
+  ## Examples
+
+      iex> StrawHat.identity(1)
+      1
+  """
+  def identity(x), do: x
 end
