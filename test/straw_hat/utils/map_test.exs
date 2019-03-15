@@ -1,4 +1,4 @@
-defmodule StrawHat.MapTests do
+defmodule StrawHat.Utils.MapTest do
   use ExUnit.Case, async: true
   alias StrawHat.Utils.Map
   doctest Map

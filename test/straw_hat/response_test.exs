@@ -1,4 +1,4 @@
-defmodule StrawHat.ResponseTests do
+defmodule StrawHat.ResponseTest do
   use ExUnit.Case, async: true
   alias StrawHat.Response
 

@@ -1,4 +1,4 @@
-defmodule StrawHatTests do
+defmodule StrawHatTest do
   use ExUnit.Case, async: true
   doctest StrawHat
 
