@@ -8,8 +8,9 @@ action "Get Deps" {
 }
 
 action "Run Tests" {
-    uses = "jclem/action-mix/test@v1.3.2"
+    uses = "jclem/action-mix@v1.3.2"
     needs = "Get Deps"
+    args = "coveralls.json"
 }
 
 action "Check Formatting" {
