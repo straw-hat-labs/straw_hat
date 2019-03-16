@@ -9,8 +9,9 @@ action "Get Deps" {
 
 action "Run Tests" {
     uses = "jclem/action-mix@v1.3.2"
-    needs = "Get Deps"
     args = "coveralls.json"
+    needs = "Get Deps"
+    env = {MIX_ENV = "test"}
 }
 
 action "Check Formatting" {
