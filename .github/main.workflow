@@ -1,13 +1,13 @@
 workflow "Tests & Formatting" {
     on = "push"
-    resolves = ["Check Formatting", "Check Linter", "Check Test"]
+    resolves = ["Check Formatting", "Check Linter", "Run Tests"]
 }
 
 action "Get Deps" {
     uses = "jclem/action-mix/deps.get@v1.3.2"
 }
 
-action "Check Test" {
+action "Run Tests" {
     uses = "jclem/action-mix/test@v1.3.2"
     needs = "Get Deps"
 }
