@@ -8,8 +8,10 @@ action "Get Deps" {
 }
 
 action "Run Tests" {
-    uses = "jclem/action-mix/test@v1.3.2"
+    uses = "jclem/action-mix@v1.3.2"
+    args = "coveralls.json"
     needs = "Get Deps"
+    env = {MIX_ENV = "test"}
 }
 
 action "Check Formatting" {
