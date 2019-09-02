@@ -3,7 +3,7 @@ defmodule StrawHat.ConfigurableTest do
   alias StrawHat.TestSupport.MockApp
 
   test "returning the configuration" do
-    config = MockApp.config([hello: "World"])
+    config = MockApp.config(hello: "World")
     assert Keyword.get(config, :hello) == "World"
     assert Keyword.get(config, :site) == "https://github.com/straw-hat-team/straw_hat"
     assert Keyword.get(config, :json_library) == "Jason"
