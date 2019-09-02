@@ -16,6 +16,7 @@ defmodule StrawHat.MixProject do
       version: @version,
       deps: deps(),
       elixir: @elixir_version,
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: production?,
       aliases: aliases(),
       test_coverage: test_coverage(),
@@ -28,6 +29,9 @@ defmodule StrawHat.MixProject do
   def application do
     [extra_applications: [:logger]]
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
     [
