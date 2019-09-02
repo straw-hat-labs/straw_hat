@@ -54,8 +54,7 @@ defmodule StrawHat.Configurable do
       @opts unquote(opts)
 
       @doc """
-      Returns the default configuration of the strategy. It merges the `params`
-      with the default params
+      Returns the configuration of the module.
       """
       @spec config(keyword()) :: keyword()
       def config(params \\ []) do
