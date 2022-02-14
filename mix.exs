@@ -2,7 +2,7 @@ defmodule StrawHat.MixProject do
   use Mix.Project
 
   @name :straw_hat
-  @version "0.6.1"
+  @version "0.6.2"
   @elixir_version "~> 1.7"
   @source_url "https://github.com/straw-hat-team/straw_hat"
 
@@ -35,7 +35,7 @@ defmodule StrawHat.MixProject do
 
   defp deps do
     [
-      {:uuid, "~> 1.1"},
+      {:uniq, "~> 0.4.1"},
       {:ecto, ">= 0.0.0", optional: true},
 
       # Tools

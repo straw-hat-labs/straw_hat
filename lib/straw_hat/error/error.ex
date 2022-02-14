@@ -16,6 +16,7 @@ defmodule StrawHat.Error do
       end
   """
 
+  alias Uniq.UUID
   alias StrawHat.Error.ErrorMetadata
 
   @type opts :: [type: String.t(), metadata: Keyword.t()]
