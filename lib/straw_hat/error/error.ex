@@ -64,12 +64,12 @@ defmodule StrawHat.Error do
       |> Keyword.get(:metadata, [])
       |> ErrorMetadata.serialize()
 
-    id = Keyword.get_lazy(opts, :id, default_id_generator())
+    id = Keyword.get_lazy(opts, :id, generate_id)
 
     %__MODULE__{id: id, code: code, type: type, metadata: metadata}
   end
 
-  defp default_id_generator() do
+  defp generate_id do
     Application.get_env(:straw_hat, :id_generator, &Uniq.UUID.uuid1/0)
   end
 end
